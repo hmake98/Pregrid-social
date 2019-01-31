@@ -1,3 +1,21 @@
-<p>
-  login works!
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col-md-4 col-s-4 col-xs-4"></div>
+    <div class="col-md-4 col-s-4 col-xs-4 mt-5">
+      <h1 class="text-center"> Login </h1>
+      <hr class="w-75">
+      <form>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Email address</label>
+          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="exampleInputPassword1">Password</label>
+          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="enter password">
+        </div>
+        <button type="submit" class="btn btn-primary">Login</button><br>
+        <small> Not a user? <a [routerLink]="['/signup']"> Signup </a> now.</small>
+      </form>
+    </div>
+  </div>
+</div>
