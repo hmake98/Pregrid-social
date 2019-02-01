@@ -6,6 +6,14 @@
     font-family: 'Roboto', sans-serif;
 }
 
+.text-red{
+    color: red;
+}
+
+input.ng-touched.ng-invalid{
+    border: 1px solid red;
+}
+
 a{
     text-decoration: none;
 }

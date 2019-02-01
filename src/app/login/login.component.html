@@ -3,16 +3,22 @@
     <div class="col-md-4 mx-auto mt-5 banner">
       <h1 class="text-center"> Pregrid Social </h1>
       <hr class="w-75">
-      <form>
+      <form #f="ngForm" (submit)="login(f)">
         <div class="form-group">
           <label for="exampleFormControlInput1">Email address</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          <input type="email" #uemail="ngModel" class="form-control" id="exampleFormControlInput1" [ngClass]="{'is-invalid': f.submitted && uemail.invalid }"
+            pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+            placeholder="name@example.com" name="email" [(ngModel)]="user.email" email required>
+          <small class="text-red" *ngIf="uemail.invalid && uemail.touched && uemail.dirty"> Enter valid email! </small>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="enter password">
+          <input type="password" name="password" #upass="ngModel" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" class="form-control"
+            id="exampleInputPassword1" placeholder="enter password" [(ngModel)]="user.password" required>
+          <small class="text-red" *ngIf="upass.invalid && upass.dirty && upass.touched"> Enter valid password! </small>
         </div>
         <button type="submit" class="btn btn-primary w-100">Login</button><br>
+        <div class="alert alert-danger" *ngIf="noAccount"> <small> No account found! </small> </div>
         <small> Not a user? <a [routerLink]="['/signup']"> Signup </a> now.</small>
       </form>
     </div>

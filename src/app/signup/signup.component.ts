@@ -1,6 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../user.model'; 
 import { NgForm } from '@angular/forms';
+import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-signup',
@@ -12,8 +14,7 @@ export class SignupComponent implements OnInit {
   user:User = new User(); 
   cfmpas:string;
 
-
-  constructor() { 
+  constructor(private userservice:UserService, private router: Router) { 
     this.user.gender = "";
   }
 
@@ -21,8 +22,14 @@ export class SignupComponent implements OnInit {
   }
 
   signup(){
-    console.log(this.userform.value);
-    console.log(this.user);
+    if(this.userform.valid){
+      this.userservice.signupUser(this.user).subscribe(
+        (res) => console.log(res),
+        (err) => console.log(err)
+      )
+      this.userform.reset();
+      this.router.navigate(['/home']);
+    }
   }
 
 }
