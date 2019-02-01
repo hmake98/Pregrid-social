@@ -21,7 +21,7 @@ export class SignupComponent implements OnInit {
   ngOnInit() {
   }
 
-  signup(){
+  signup(userform){
     if(this.userform.valid){
       this.userservice.signupUser(this.user).subscribe(
         (res) => console.log(res),

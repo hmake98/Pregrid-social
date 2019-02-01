@@ -26,7 +26,7 @@ export class LoginComponent implements OnInit {
     );
   }
 
-  login(){
+  login(loginform){
     if(this.loginform.valid){
       for(let key in this.users){
         if(this.user.email === this.users[key].email && this.user.password === this.users[key].password){
