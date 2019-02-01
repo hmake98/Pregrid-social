@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { User } from '../user.model'; 
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-signup',
@@ -6,10 +8,21 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./signup.component.css']
 })
 export class SignupComponent implements OnInit {
+  @ViewChild('f') userform:NgForm;
+  user:User = new User(); 
+  cfmpas:string;
 
-  constructor() { }
+
+  constructor() { 
+    this.user.gender = "";
+  }
 
   ngOnInit() {
+  }
+
+  signup(){
+    console.log(this.userform.value);
+    console.log(this.user);
   }
 
 }

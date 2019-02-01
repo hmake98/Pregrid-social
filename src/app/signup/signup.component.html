@@ -1,36 +1,42 @@
 <div class="container">
   <div class="row">
     <div class="col-md-4 mx-auto mt-5 banner">
-      <h1 class="text-center"> Signup </h1>
+      <h1 class="text-center"> Pregrid Social </h1>
       <hr class="w-75">
-      <form>
+      <form (submit)="signup(f)" #f="ngForm">
         <div class="form-group">
           <label for="formGroupExampleInput">Full Name</label>
-          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="enter fullname">
+          <input type="text" class="form-control" id="formGroupExampleInput" placeholder="Enter fullname" name="name"
+            [(ngModel)]="user.name">
         </div>
         <div class="form-group">
           <label for="exampleFormControlInput1">Email address</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          <input type="email" #uemail="ngModel" [ngClass]="{'is-invalid': f.submitted && uemail.invalid }" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+            name="email" class="form-control" placeholder="name@example.com" [(ngModel)]="user.email" email required>
+          <small class="text-red" *ngIf="uemail.invalid && uemail.touched"> Enter valid email! </small>
         </div>
         <div class="form-group">
-          <label for=""> Gender </label><br>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" value="option1">
-            <label class="form-check-label" for="inlineRadio1"> Male </label>
-          </div>
-          <div class="form-check form-check-inline">
-            <input class="form-check-input" type="radio" name="gender" value="option2">
-            <label class="form-check-label" for="inlineRadio2"> Female </label>
-          </div>
+          <label for="exampleFormControlSelect1">Gender</label>
+          <select class="form-control" id="exampleFormControlSelect1" name="gender" [(ngModel)]="user.gender" required>
+            <option hidden value="" disabled selected> Select </option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
         </div>
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
-          <input type="password" class="form-control" id="exampleInputPassword1" placeholder="enter password">
+          <input type="password" #upass="ngModel" class="form-control" id="exampleInputPassword1" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Enter password" name="paswd"
+            [(ngModel)]="user.password" required>
+          <small class="text-red" *ngIf="upass.invalid && upass.dirty && upass.touched"> Enter valid password! </small>
         </div>
         <div class="form-group">
-          <input type="password" class="form-control" id="exampleInputPassword2" placeholder="reneter Password">
+          <input type="password" #cpass="ngModel" class="form-control" placeholder="Reneter Password" name="cfmpas"
+            [(ngModel)]="cfmpas" [disabled]="upass.invalid" required>
+          <div class="alert alert-danger" *ngIf="user.password !== cfmpas && cpass.touched"> <small> Password not matched! </small> </div> 
         </div>
-        <button type="submit" class="btn btn-primary">Signup</button><br>
+        <hr>
+        <small> By signing up, you agree our terms and conditions. </small><br><br>
+        <button type="submit" class="btn btn-primary w-100" [disabled]="f.invalid">Signup</button><br>
         <small> Already a user? <a [routerLink]="['/login']"> Login </a> now.</small>
       </form>
     </div>
