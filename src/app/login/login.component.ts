@@ -16,6 +16,8 @@ export class LoginComponent implements OnInit {
   users: Array<User> = [];
   user:LogUser = new LogUser();
   noAccount:boolean = false;
+  invalidPass:boolean = false;
+  loggedIn: boolean = false;
 
   constructor(private userservice: UserService, private router: Router) { }
 
@@ -28,13 +30,26 @@ export class LoginComponent implements OnInit {
 
   login(loginform){
     if(this.loginform.valid){
+      let usersList = [];
       for(let key in this.users){
-        if(this.user.email === this.users[key].email && this.user.password === this.users[key].password){
-          console.log("Account matched!");
-          this.router.navigate(['/home']);
-        }else{
+        usersList.push(this.users[key]);
+      }
+      let matchedUser = usersList.filter(u => u.email.toLowerCase() == this.user.email.toLowerCase());
+      if(matchedUser.length === 0){
+        setTimeout(()=>{
+          debugger
           this.noAccount = true;
-        }
+        },1000);
+        this.noAccount = false;
+      } else if(matchedUser[0].password !== this.user.password){
+        setTimeout(()=>{
+          this.invalidPass = true;
+        },1000);
+        this.invalidPass = false;
+      } else {
+        this.loggedIn = true;
+        localStorage.setItem('user', JSON.stringify(matchedUser[0]));
+        this.router.navigate(['/home']);
       }
     }
   }

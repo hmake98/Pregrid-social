@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "dist/Pregrid-social",
+    "public": "dist/Pregrid",
     "ignore": [
       "firebase.json",
       "**/.*",

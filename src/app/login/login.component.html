@@ -19,6 +19,7 @@
         </div>
         <button type="submit" class="btn btn-primary w-100">Login</button><br>
         <div class="alert alert-danger" *ngIf="noAccount"> <small> No account found! </small> </div>
+        <div class="alert alert-danger" *ngIf="invalidPass"> <small> Invalid Password! </small> </div>
         <small> Not a user? <a [routerLink]="['/signup']"> Signup </a> now.</small>
       </form>
     </div>

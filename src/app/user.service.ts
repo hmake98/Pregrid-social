@@ -16,4 +16,8 @@ export class UserService {
     return this.http.get("https://pregrid-social.firebaseio.com/signup.json");
   }
 
+  logOut(){
+    
+  }
+
 }

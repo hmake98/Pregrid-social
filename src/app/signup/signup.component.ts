@@ -13,6 +13,7 @@ export class SignupComponent implements OnInit {
   @ViewChild('f') userform:NgForm;
   user:User = new User(); 
   cfmpas:string;
+  loggedIn: boolean = false;
 
   constructor(private userservice:UserService, private router: Router) { 
     this.user.gender = "";
@@ -28,6 +29,8 @@ export class SignupComponent implements OnInit {
         (err) => console.log(err)
       )
       this.userform.reset();
+      this.loggedIn = true;
+      localStorage.setItem('user', JSON.stringify(this.user));
       this.router.navigate(['/home']);
     }
   }

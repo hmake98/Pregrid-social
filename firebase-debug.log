@@ -1,31 +1,67 @@
-[debug] [2019-02-01T14:43:34.563Z] ----------------------------------------------------------------------
-[debug] [2019-02-01T14:43:34.565Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
-[debug] [2019-02-01T14:43:34.565Z] CLI Version:   6.3.0
-[debug] [2019-02-01T14:43:34.565Z] Platform:      darwin
-[debug] [2019-02-01T14:43:34.565Z] Node Version:  v10.15.0
-[debug] [2019-02-01T14:43:34.565Z] Time:          Fri Feb 01 2019 20:13:34 GMT+0530 (India Standard Time)
-[debug] [2019-02-01T14:43:34.565Z] ----------------------------------------------------------------------
+[debug] [2019-02-04T13:48:28.467Z] ----------------------------------------------------------------------
+[debug] [2019-02-04T13:48:28.472Z] Command:       /usr/local/bin/node /usr/local/bin/firebase deploy
+[debug] [2019-02-04T13:48:28.474Z] CLI Version:   6.3.0
+[debug] [2019-02-04T13:48:28.475Z] Platform:      darwin
+[debug] [2019-02-04T13:48:28.475Z] Node Version:  v10.15.0
+[debug] [2019-02-04T13:48:28.475Z] Time:          Mon Feb 04 2019 19:18:28 GMT+0530 (India Standard Time)
+[debug] [2019-02-04T13:48:28.475Z] ----------------------------------------------------------------------
 [debug] 
-[debug] [2019-02-01T14:43:34.576Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
-[debug] [2019-02-01T14:43:34.576Z] > authorizing via signed-in user
-[debug] [2019-02-01T14:43:34.576Z] [iam] checking project pregrid-social for permissions ["firebase.projects.get","firebasehosting.sites.update"]
-[debug] [2019-02-01T14:43:34.577Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pregrid-social:testIamPermissions  
+[debug] [2019-02-04T13:48:28.484Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2019-02-04T13:48:28.484Z] > authorizing via signed-in user
+[debug] [2019-02-04T13:48:28.484Z] [iam] checking project pregrid-social for permissions ["firebase.projects.get","firebasehosting.sites.update"]
+[debug] [2019-02-04T13:48:28.485Z] >>> HTTP REQUEST POST https://cloudresourcemanager.googleapis.com/v1/projects/pregrid-social:testIamPermissions  
 
-[debug] [2019-02-01T14:43:36.301Z] <<< HTTP RESPONSE 200
-[debug] [2019-02-01T14:43:36.302Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pregrid-social  
+[debug] [2019-02-04T13:48:30.142Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-04T13:48:30.144Z] >>> HTTP REQUEST GET https://firebase.googleapis.com/v1beta1/projects/pregrid-social  
  
-[debug] [2019-02-01T14:43:36.742Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-04T13:48:30.570Z] <<< HTTP RESPONSE 200
 [info] 
 [info] === Deploying to 'pregrid-social'...
 [info] 
 [info] i  deploying hosting
-[debug] [2019-02-01T14:43:36.745Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pregrid-social/versions  
+[debug] [2019-02-04T13:48:30.575Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pregrid-social/versions  
 
-[debug] [2019-02-01T14:43:48.240Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-04T13:48:32.951Z] <<< HTTP RESPONSE 200
 [info] i  hosting[pregrid-social]: beginning deploy...
-[info] i  hosting[pregrid-social]: found 1 files in dist/Pregrid-social
-[debug] [2019-02-01T14:43:48.246Z] [hosting] hash cache [ZGlzdC9QcmVncmlkLXNvY2lhbA] not populated
-[debug] [2019-02-01T14:43:48.256Z] [hosting] hash cache [ZGlzdC9QcmVncmlkLXNvY2lhbA] stored for 1 files
-[debug] [2019-02-01T14:43:48.257Z] [hosting][hash queue][FINAL]
-[debug] [2019-02-01T14:43:48.257Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pregrid-social/versions/e2d3f10a2349ce63:populateFiles  
+[info] i  hosting[pregrid-social]: found 7 files in dist/Pregrid
+[debug] [2019-02-04T13:48:32.961Z] [hosting] hash cache [ZGlzdC9QcmVncmlk] load error: lines is not defined
+[debug] [2019-02-04T13:48:33.004Z] [hosting] hash cache [ZGlzdC9QcmVncmlk] stored for 7 files
+[debug] [2019-02-04T13:48:33.004Z] [hosting][hash queue][FINAL]
+[debug] [2019-02-04T13:48:33.004Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pregrid-social/versions/6c4f89d499a9c2bb:populateFiles  
  <request body omitted>
+[debug] [2019-02-04T13:48:35.040Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-04T13:48:35.045Z] [hosting][populate queue][FINAL]
+[debug] [2019-02-04T13:48:35.045Z] [hosting] uploads queued: 2
+[debug] [2019-02-04T13:48:38.993Z] [hosting][upload queue][FINAL]
+[info] ✔  hosting[pregrid-social]: file upload complete
+[debug] [2019-02-04T13:48:38.994Z] [hosting] deploy completed after 6043ms
+[debug] [2019-02-04T13:48:39.180Z] [
+  {
+    "config": {
+      "public": "dist/Pregrid",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ],
+      "site": "pregrid-social"
+    },
+    "site": "pregrid-social",
+    "version": "sites/pregrid-social/versions/6c4f89d499a9c2bb"
+  }
+]
+[info] i  hosting[pregrid-social]: finalizing version...
+[debug] [2019-02-04T13:48:39.181Z] >>> HTTP REQUEST PATCH https://firebasehosting.googleapis.com/v1beta1/sites/pregrid-social/versions/6c4f89d499a9c2bb?updateMask=status  
+
+[debug] [2019-02-04T13:48:41.062Z] <<< HTTP RESPONSE 200
+[debug] [2019-02-04T13:48:41.062Z] [hosting] finalized version for pregrid-social:
+[info] ✔  hosting[pregrid-social]: version finalized
+[info] i  hosting[pregrid-social]: releasing new version...
+[debug] [2019-02-04T13:48:41.063Z] >>> HTTP REQUEST POST https://firebasehosting.googleapis.com/v1beta1/sites/pregrid-social/releases?version_name=sites/pregrid-social/versions/6c4f89d499a9c2bb  
+
