@@ -3,7 +3,10 @@
     <div class="row">
         <div class="col-md-10">
             <div class="post-block">
-                <textarea class="form-control post-area" placeholder="Enter your status here..." rows="4"></textarea>
+                <form #f="ngForm">
+                    <textarea class="form-control post-area" name="post" placeholder="Enter your status here..." rows="4"
+                        [(ngModel)]="post.status"></textarea>
+                </form>
             </div>
         </div>
         <div class="col-md-2">
@@ -12,18 +15,23 @@
                     <option> Public </option>
                     <option> Private </option>
                 </select>
-                <button class="btn btn-primary btn-post mt-4"> Post </button>
+                <button class="btn btn-primary btn-post mt-4" (click)="postStatus(f)"> Post </button>
             </div>
         </div>
     </div>
     <hr>
     <h1 class="text-center"> Posts </h1>
-    <div class="posts">
-        <div class="card">
-            <h5 class="card-header"> {{user.name}} </h5>
-            <div class="card-body">
-                <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                <button class="btn btn-primary"> <i class="fas fa-thumbs-up"></i> </button>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="posts" *ngFor="let item of user_post.slice().reverse()">
+                <div class="card">
+                    <h5 class="card-header"> {{item.name}} </h5>
+                    <div class="card-body">
+                        <p class="card-text"> {{item.status}} </p>
+                        <button class="btn btn-primary"> <i class="fas fa-thumbs-up"></i> 1 </button>
+                        <button class="btn btn-danger ml-2" *ngIf="!item.delete"> <i class="fas fa-trash"></i> </button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

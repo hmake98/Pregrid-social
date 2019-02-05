@@ -32,20 +32,13 @@ export class LoginComponent implements OnInit {
     if(this.loginform.valid){
       let usersList = [];
       for(let key in this.users){
-        usersList.push(this.users[key]);
+        usersList.push({...this.users[key], userid:key});
       }
       let matchedUser = usersList.filter(u => u.email.toLowerCase() == this.user.email.toLowerCase());
       if(matchedUser.length === 0){
-        setTimeout(()=>{
-          debugger
-          this.noAccount = true;
-        },1000);
-        this.noAccount = false;
+        this.noAccount = true;
       } else if(matchedUser[0].password !== this.user.password){
-        setTimeout(()=>{
-          this.invalidPass = true;
-        },1000);
-        this.invalidPass = false;
+        this.invalidPass = true;
       } else {
         this.loggedIn = true;
         localStorage.setItem('user', JSON.stringify(matchedUser[0]));
