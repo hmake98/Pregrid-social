@@ -23,13 +23,14 @@
     <h1 class="text-center"> Posts </h1>
     <div class="row">
         <div class="col-md-8">
-            <div class="posts" *ngFor="let item of user_post.slice().reverse()">
+            <div class="posts" *ngFor="let item of user_post.reverse()">
+                {{ item | json }}
                 <div class="card">
                     <h5 class="card-header"> {{item.name}} </h5>
                     <div class="card-body">
                         <p class="card-text"> {{item.status}} </p>
-                        <button class="btn btn-primary"> <i class="fas fa-thumbs-up"></i> 1 </button>
-                        <button class="btn btn-danger ml-2" *ngIf="!item.delete"> <i class="fas fa-trash"></i> </button>
+                        <button class="btn btn-primary" (click)="giveLike(item)"> <i class="fas fa-thumbs-up"></i> {{item.like}} </button>
+                        <button class="btn btn-danger ml-2" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)"> <i class="fas fa-trash"></i> </button>
                     </div>
                 </div>
             </div>

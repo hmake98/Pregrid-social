@@ -4,7 +4,6 @@
 
 export const environment = {
   production: false,
-  env: 'dev',
   firebaseConfig: {
     apiKey: "AIzaSyAy9cwrBWQlbCKBuq2VRVx52MFXYs54gjQ",
     authDomain: "pregrid-social.firebaseapp.com",

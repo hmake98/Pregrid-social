@@ -9,9 +9,9 @@ import { HomeComponent } from './home/home.component';
 import { AccountComponent } from './account/account.component';
 import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
-import { environment } from '../environments/environment';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import * as firebase from "firebase";
+import { environment } from 'src/environments/environment';
+firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
   declarations: [
@@ -26,9 +26,7 @@ import { AngularFireDatabaseModule } from 'angularfire2/database';
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule,
-    AngularFireDatabaseModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig)
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
