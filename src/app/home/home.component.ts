@@ -10,6 +10,7 @@ import * as firebase from 'firebase';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
   @ViewChild('f') postForm:NgForm;
   user:User;
@@ -28,16 +29,18 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    let now = new Date();
     let current = this;
     current.users = firebase.database().ref('signup/').once('value', (res) => {
       current.users = res.val();
-      firebase.database().ref('posts/').on('value', (snapshot) => {
+      firebase.database().ref('posts/').orderByChild("timestamp").on('value', (snapshot) => {
         current.user_post = [];
         for(let key in snapshot.val()){
           let ser = snapshot.val()[key];
           ser.postid = key;
           ser.name = current.users[snapshot.val()[key].userid].name;
           current.user_post.push(ser);
+          current.user_post.reverse();  
         }
         current.change.detectChanges();
       });
@@ -46,7 +49,11 @@ export class HomeComponent implements OnInit {
   }
 
   postStatus(postForm){
-    firebase.database().ref('posts/').push(this.post);
+    let now = new Date();
+    this.post.timestamp = now.getTime();
+    let trimmed_status = this.post.status.trim();
+    this.post.status = trimmed_status;
+    firebase.database().ref('posts/').push(this.post);  
     this.postForm.reset();
   }
 
@@ -55,16 +62,12 @@ export class HomeComponent implements OnInit {
   }
 
   giveLike(post){
-    if(post.like !== undefined){ }
     firebase.database().ref('posts/'+post.postid+'/like').update({[this.user.userid]: true});
-    this.user_post.forEach(element => {
-      let count = 0;
-      for(let i in element.like){
-        count++;
-      }
-      firebase.database().ref('posts/'+post.postid).update({likes: count});
-    });
     this.change.detectChanges();
+  }
+
+  getLikes(post){
+    return (post.like === undefined)?'':Object.keys(post.like).length;
   }
 
 }

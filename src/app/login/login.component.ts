@@ -22,10 +22,14 @@ export class LoginComponent implements OnInit {
   constructor(private userservice: UserService, private router: Router) { }
 
   ngOnInit() {
-    this.userservice.getUsers().subscribe(
-      (res: Array<User>) => { this.users = res },
-      (err) => console.log(err)
-    );
+    if(localStorage.getItem('user')){
+      this.router.navigate(['/home']);
+    } else {
+      this.userservice.getUsers().subscribe(
+        (res: Array<User>) => { this.users = res },
+        (err) => console.log(err)
+      );
+    }
   }
 
   login(loginform){

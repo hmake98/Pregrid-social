@@ -20,6 +20,9 @@ export class SignupComponent implements OnInit {
   }
 
   ngOnInit() {
+    if(localStorage.getItem('user')){ 
+      this.router.navigate(['/home']);
+    }
   }
 
   signup(userform){
