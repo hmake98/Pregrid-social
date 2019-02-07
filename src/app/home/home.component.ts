@@ -19,9 +19,9 @@ export class HomeComponent implements OnInit {
   users:any;
   user_post = [];
   allowDelete:boolean = false;
+  likes_count;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef) {
-    //firebase.initializeApp(environment.firebaseConfig); 
     this.user = JSON.parse(localStorage.getItem('user'));
     this.post.userid = this.user.userid;
     //this.getPosts();
@@ -38,9 +38,10 @@ export class HomeComponent implements OnInit {
           ser.postid = key;
           ser.name = current.users[snapshot.val()[key].userid].name;
           current.user_post.push(ser);
-          current.change.detectChanges();
         }
+        current.change.detectChanges();
       });
+      
     });
   }
 
@@ -54,14 +55,16 @@ export class HomeComponent implements OnInit {
   }
 
   giveLike(post){
-    let like = 0;
-    if(post.like !== undefined){
-      console.log("Not avail");
-      like = post.like++;
-    }
+    if(post.like !== undefined){ }
     firebase.database().ref('posts/'+post.postid+'/like').update({[this.user.userid]: true});
+    this.user_post.forEach(element => {
+      let count = 0;
+      for(let i in element.like){
+        count++;
+      }
+      firebase.database().ref('posts/'+post.postid).update({likes: count});
+    });
     this.change.detectChanges();
-    console.log(post);
   }
 
 }
