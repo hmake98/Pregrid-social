@@ -3,6 +3,7 @@
     width: 100%;
     min-height: 100vh;
     font-family: 'Lato', sans-serif;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 
 .post-block{
@@ -28,15 +29,69 @@ select{
     border: 1px solid #eee;
 }
 
+/* buttons */
+
 .btn-post{
     width: 100%;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+}
+
+.btn-like{
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.btn-delete{
+    border: none;
+    background: none;
+    color: #333;
+}
+
+.btn-delete:hover{
+    color: red;
+}
+
+.last-hr{
+    width: 100px;
+}
+
+.fa-ellipsis-v:hover{
+    color: #eee;
+    cursor: pointer;
+}
+
+/* card customization */
+
+.posts{
+    margin: 40px;
 }
 
 .card{
     border-radius: 10px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    border-radius: 15px;
 }
 
-.posts{
-    margin: 20px;
+.card:hover{
+    box-shadow: 0 11px 20px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+}
+
+.card-head{
+    background: #fff;
+    border-top-left-radius: 15px;
+    border-top-right-radius: 15px;
+    padding: 20px;
+}
+
+.img-profile{
+    border-radius: 50%;
+    display: inline;
+}
+
+
+
+.last-post-message{
+    font-family: 'Varela Round', sans-serif;
+    text-align: center;
+    padding-bottom: 30px;
 }

@@ -12,29 +12,36 @@
         <div class="col-md-2">
             <div class="post-block">
                 <select>
-                    <option> Public </option>
-                    <option> Private </option>
+                    <option> <i class="fas fa-globe-asia"></i> Public </option>
+                    <option> <i class="fas fa-lock"></i> Only me </option>
                 </select>
                 <button class="btn btn-primary btn-post mt-4" (click)="postStatus(f)"> Post </button>
             </div>
         </div>
     </div>
     <hr>
-    <h1 class="text-center"> Posts </h1>
+    <h1 class="text-center header-text"> Posts </h1>
     <div class="row">
         <div class="col-md-8">
             <div class="posts" *ngFor="let item of user_post">
                 <div class="card">
-                    <h5 class="card-header"> {{item.name}} </h5>
+                    <h5 class="card-head"> <img src="https://mnsearch.org/wp-content/uploads/2014/10/blank-2017.jpg"
+                            class="img-profile img-responsive mr-2" width="30px" height="30px"> {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                    </h5>
                     <div class="card-body">
                         <p class="card-text"> {{item.status}} </p>
-                        <button class="btn btn-primary" (click)="giveLike(item)"> <i class="fas fa-thumbs-up"></i> {{ getLikes(item) }}
+                        <button type="button" class="btn btn-like" (click)="giveLike(item)" id="back-color"> <i class="fas fa-thumbs-up"
+                                [style.color]="(isLiked(item))?'#3a5998':'black'"></i> {{ getLikes(item) }}
                         </button>
-                        <button class="btn btn-danger ml-2" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)">
+                        <button class="btn btn-danger btn-delete ml-2" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)">
                             <i class="fas fa-trash"></i> </button>
                     </div>
                 </div>
             </div>
         </div>
+    </div>
+    <div class="last-post-message">
+        <hr class="last-hr">
+        <h5> You catched all posts! </h5>
     </div>
 </div>

@@ -70,5 +70,9 @@ export class HomeComponent implements OnInit {
     return (post.like === undefined)?'':Object.keys(post.like).length;
   }
 
+  isLiked(post){
+    return (post.like !== undefined && post.like[this.user.userid] !== undefined)? true : false;
+  }
+
 }
 
