@@ -21,6 +21,7 @@ export class HomeComponent implements OnInit {
   user_post = [];
   allowDelete:boolean = false;
   likes_count;
+  post_db_Ref:any;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -33,19 +34,23 @@ export class HomeComponent implements OnInit {
     let current = this;
     current.users = firebase.database().ref('signup/').once('value', (res) => {
       current.users = res.val();
-      firebase.database().ref('posts/').orderByChild("timestamp").on('value', (snapshot) => {
+      this.post_db_Ref = firebase.database().ref('posts/').orderByChild("timestamp")
+      this.post_db_Ref.on('value', (snapshot) => {
         current.user_post = [];
         for(let key in snapshot.val()){
           let ser = snapshot.val()[key];
           ser.postid = key;
           ser.name = current.users[snapshot.val()[key].userid].name;
-          current.user_post.push(ser);
-          current.user_post.reverse();  
+          current.user_post.unshift(ser); 
         }
         current.change.detectChanges();
       });
       
     });
+  }
+
+  ngOnDestroy(): void {
+    this.post_db_Ref.off();    
   }
 
   postStatus(postForm){

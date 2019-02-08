@@ -1,10 +1,49 @@
 <app-header> </app-header>
-<div class="container banner">
+<div class="container">
   <div class="pregrid-img">
     <img src="https://mnsearch.org/wp-content/uploads/2014/10/blank-2017.jpg" class="img-responsive" width="250px"
       height="250px">
   </div>
-  <div class="pregrid-profile-name">
-    <h1> {{user.name}} </h1> <br>
+  <div class="pregrid-profile">
+    <div class="pregrid-profile-name">
+      <h1> {{user.name}} </h1>
+    </div>
+    <div class="pregrid-profile-bio">
+      <p> User's Bio: Developer </p>
+    </div>
+    <div class="row">
+      <div class="col-md-12">
+        <div class="jumbotron pregrid-profile-details">
+          <h2> Intro </h2>
+          <p> <i class="fas fa-envelope"></i> &nbsp; Email : {{ user.email }} </p>
+          <p> <i class="far fa-user"></i> &nbsp; Gender : {{ user.gender }} </p>
+        </div>
+      </div>
+    </div>
+    <div class="pregrid-profile-posts">
+      <h1> Posts </h1>
+      <hr class="post-line">
+      <div class="post">
+        <div class="row">
+          <div class="col-md-6">
+            <div class="posts" *ngFor="let item of user_post">
+              <div class="card">
+                <h5 class="card-head"> <img src="https://mnsearch.org/wp-content/uploads/2014/10/blank-2017.jpg" class="img-profile mr-2"
+                    width="30px" height="30px"> {{user.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                </h5>
+                <div class="card-body">
+                  <p class="card-text"> {{item.value.status}} </p>
+                  <button type="button" class="btn btn-like" (click)="giveLike(item.key)" id="back-color"> <i class="fas fa-thumbs-up"
+                      [style.color]="(isLiked(item.value))?'#3a5998':'black'"></i> {{ getLikes(item.value) }}
+                  </button>
+                  <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)">
+                    <i class="fas fa-trash"></i> </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </div>

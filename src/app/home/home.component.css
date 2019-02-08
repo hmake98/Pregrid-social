@@ -64,7 +64,7 @@ select{
 /* card customization */
 
 .posts{
-    margin: 40px;
+    margin: 30px;
 }
 
 .card{
@@ -87,8 +87,6 @@ select{
     border-radius: 50%;
     display: inline;
 }
-
-
 
 .last-post-message{
     font-family: 'Varela Round', sans-serif;
