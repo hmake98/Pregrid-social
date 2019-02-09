@@ -25,12 +25,12 @@ export class HomeComponent implements OnInit {
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef) {
     this.user = JSON.parse(localStorage.getItem('user'));
+    //console.log(this.user.userid);  
     this.post.userid = this.user.userid;
     //this.getPosts();
   }
 
   ngOnInit() {
-    let now = new Date();
     let current = this;
     current.users = firebase.database().ref('signup/').once('value', (res) => {
       current.users = res.val();
@@ -44,8 +44,7 @@ export class HomeComponent implements OnInit {
           current.user_post.unshift(ser); 
         }
         current.change.detectChanges();
-      });
-      
+      });  
     });
   }
 

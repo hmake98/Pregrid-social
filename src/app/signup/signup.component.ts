@@ -30,11 +30,11 @@ export class SignupComponent implements OnInit {
       this.userservice.signupUser(this.user).subscribe(
         (res) => console.log(res),
         (err) => console.log(err)
-      )
+      );
       this.userform.reset();
       this.loggedIn = true;
       localStorage.setItem('user', JSON.stringify(this.user));
-      this.router.navigate(['/home']);
+      this.router.navigate(['/login']);
     }
   }
 
