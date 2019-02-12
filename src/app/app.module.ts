@@ -11,6 +11,8 @@ import { HeaderComponent } from './header/header.component';
 import { HttpClientModule } from '@angular/common/http';
 import * as firebase from "firebase";
 import { environment } from 'src/environments/environment';
+import { NgHttpLoaderModule } from 'ng-http-loader';
+
 firebase.initializeApp(environment.firebaseConfig);
 
 @NgModule({
@@ -26,7 +28,8 @@ firebase.initializeApp(environment.firebaseConfig);
     BrowserModule,
     AppRoutingModule,
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgHttpLoaderModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

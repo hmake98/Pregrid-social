@@ -22,6 +22,7 @@ export class HomeComponent implements OnInit {
   allowDelete:boolean = false;
   likes_count;
   post_db_Ref:any;
+  post_status:string;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -54,6 +55,7 @@ export class HomeComponent implements OnInit {
   }
 
   postStatus(postForm){
+    console.log(this.post_status);
     let now = new Date();
     this.post.timestamp = now.getTime();
     let trimmed_status = this.post.status.trim();
