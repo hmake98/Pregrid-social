@@ -26,6 +26,7 @@ export class HomeComponent implements OnInit {
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef) {
     this.user = JSON.parse(localStorage.getItem('user'));
+    //console.log(this.user.userid);  
     this.post.userid = this.user.userid;
     //this.getPosts();
   }
@@ -49,8 +50,7 @@ export class HomeComponent implements OnInit {
           this.null_posts = true;
         }
         current.change.detectChanges();
-      });
-      
+      });  
     });
   }
 
