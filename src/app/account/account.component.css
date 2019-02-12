@@ -102,6 +102,12 @@ h1{
     cursor: pointer;
 }
 
+.btn{
+    background: linear-gradient(270deg,#B24592,#F15F79);
+    outline: none;
+    border: none;
+}
+
 @media only screen and (max-width: 769px){
     .container{
         overflow-x: hidden;

@@ -59,8 +59,6 @@ export class HomeComponent implements OnInit {
   }
 
   postStatus(postForm){
-    console.log(this.post.status);
-    
     if(this.post.status !== undefined && this.post.status !== ""){
       let now = new Date();
       this.post.timestamp = now.getTime();
@@ -70,7 +68,6 @@ export class HomeComponent implements OnInit {
         this.post.post_status = "Public";
       }
       firebase.database().ref('posts/').push(this.post);  
-      console.log(this.post);
       this.postForm.reset();
     }
   }

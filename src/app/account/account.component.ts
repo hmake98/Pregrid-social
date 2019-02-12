@@ -12,6 +12,12 @@ export class AccountComponent implements OnInit {
 
   user:User;
   user_post:any = [];
+  user_bio:string;
+  user_dob:string;
+  user_city:string;
+  avail_bio:boolean;
+  avail_dob:boolean;
+  avail_city:boolean;
 
   constructor(private change:ChangeDetectorRef) {}
 
@@ -26,9 +32,15 @@ export class AccountComponent implements OnInit {
         //}
       }
       this.change.detectChanges();
-      console.log(res.val());
     });
-    console.log(this.user_post);
+    firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+      for(let key in res.val()){
+        if(res.val()[key].bio){
+          this.avail_bio = true;
+          this.user_bio = res.val()[key].bio;
+        }
+      }
+    });
   }
 
   removeStatus(p_key){
@@ -47,6 +59,22 @@ export class AccountComponent implements OnInit {
 
   isLiked(post){
     return (post.like !== undefined && post.like[this.user.userid] !== undefined)? true : false;
+  }
+
+  saveBio(){
+    console.log(this.user_bio);
+    firebase.database().ref('signup/'+this.user.userid).update({bio: this.user_bio});
+  }
+
+  saveDob(){
+    console.log(this.user_dob);
+    firebase.database().ref('signup/'+this.user.userid).update({dob: this.user_dob});
+    
+  }
+
+  saveCity(){
+    console.log(this.user_city);
+    firebase.database().ref('signup/'+this.user.userid).update({city: this.user_city});
   }
 
 }
