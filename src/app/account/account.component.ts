@@ -7,7 +7,7 @@ import { Post } from '../post.model';
   selector: 'app-account',
   templateUrl: './account.component.html',
   styleUrls: ['./account.component.css']
-})
+}) 
 export class AccountComponent implements OnInit {
 
   user:User;
@@ -17,13 +17,13 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
-    firebase.database().ref('posts/').on('value', (res) => {
+    firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
       this.user_post = [];
       for(let key in res.val()){
         //console.log(res.val()[key].userid);
-        if(res.val()[key].userid === this.user.userid){
+        //if(res.val()[key].userid === this.user.userid){
           this.user_post.unshift({key:key, value:res.val()[key]});
-        }
+        //}
       }
       this.change.detectChanges();
       console.log(res.val());

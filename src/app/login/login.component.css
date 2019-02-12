@@ -1,28 +1,33 @@
-.banner{
+.banner {
     padding: 2em;
     background: #fff;
     margin: 1em;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     font-family: 'Roboto', sans-serif;
 }
 
-.text-red{
+.text-red {
     color: red;
 }
 
-input.ng-touched.ng-invalid{
+input.ng-touched.ng-invalid {
     border: 1px solid red;
 }
 
-a{
+a {
     text-decoration: none;
 }
 
-h1{
+h1 {
     font-family: 'Dosis', sans-serif;
 }
 
-input{
+input {
     background: #eee;
 }
 
+.btn {
+    background: linear-gradient(270deg, #B24592, #F15F79);
+    outline: none;
+    border: none;
+}
