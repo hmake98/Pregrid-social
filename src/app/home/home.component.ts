@@ -22,7 +22,7 @@ export class HomeComponent implements OnInit {
   allowDelete:boolean = false;
   likes_count;
   post_db_Ref:any;
-  post_status:string;
+  null_posts: boolean;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -31,7 +31,6 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    let now = new Date();
     let current = this;
     current.users = firebase.database().ref('signup/').once('value', (res) => {
       current.users = res.val();
@@ -42,7 +41,12 @@ export class HomeComponent implements OnInit {
           let ser = snapshot.val()[key];
           ser.postid = key;
           ser.name = current.users[snapshot.val()[key].userid].name;
-          current.user_post.unshift(ser); 
+          if(ser.post_status === "Public"){
+            current.user_post.unshift(ser);
+          }
+        }
+        if(this.user_post.length === 0){
+          this.null_posts = true;
         }
         current.change.detectChanges();
       });
@@ -55,13 +59,20 @@ export class HomeComponent implements OnInit {
   }
 
   postStatus(postForm){
-    console.log(this.post_status);
-    let now = new Date();
-    this.post.timestamp = now.getTime();
-    let trimmed_status = this.post.status.trim();
-    this.post.status = trimmed_status;
-    firebase.database().ref('posts/').push(this.post);  
-    this.postForm.reset();
+    console.log(this.post.status);
+    
+    if(this.post.status !== undefined && this.post.status !== ""){
+      let now = new Date();
+      this.post.timestamp = now.getTime();
+      let trimmed_status = this.post.status.trim();
+      this.post.status = trimmed_status;
+      if(this.post.post_status === undefined){
+        this.post.post_status = "Public";
+      }
+      firebase.database().ref('posts/').push(this.post);  
+      console.log(this.post);
+      this.postForm.reset();
+    }
   }
 
   removeStatus(p_key){

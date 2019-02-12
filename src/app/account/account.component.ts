@@ -17,7 +17,6 @@ export class AccountComponent implements OnInit {
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
-    //console.log(this.user_post);
     firebase.database().ref('posts/').on('value', (res) => {
       this.user_post = [];
       for(let key in res.val()){
