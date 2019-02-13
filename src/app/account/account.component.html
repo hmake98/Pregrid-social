@@ -32,8 +32,8 @@
             </div><br>
             <button class="btn btn-intro btn-primary mt-2" data-toggle="collapse" href="#multiCollapseExample2" role="button"
               aria-expanded="false" aria-controls="multiCollapseExample2"> <i class="fas fa-plus"></i> &nbsp; <span
-              *ngIf="user.dob"> Edit Date of Birth </span> <span *ngIf="!user.dob"> Add Date
-              of Birth </span> </button>
+                *ngIf="user.dob"> Edit Date of Birth </span> <span *ngIf="!user.dob"> Add Date
+                of Birth </span> </button>
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="card-body btn-popper">
                 <input type="date" class="form-control" name="user_dob" [(ngModel)]="user_dob">
@@ -42,7 +42,7 @@
             </div><br>
             <button class="btn btn-intro btn-primary mt-2" data-toggle="collapse" href="#multiCollapseExample3" role="button"
               aria-expanded="false" aria-controls="multiCollapseExample3"> <i class="fas fa-plus"></i> &nbsp; <span
-              *ngIf="user.city"> Edit City </span> <span *ngIf="!user.city"> Add City </span>
+                *ngIf="user.city"> Edit City </span> <span *ngIf="!user.city"> Add City </span>
             </button>
             <div class="collapse multi-collapse" id="multiCollapseExample3">
               <div class="card-body btn-popper">
@@ -55,7 +55,7 @@
       </div>
     </div>
     <div class="pregrid-profile-posts">
-      <h1> Posts </h1>
+      <h2> Posts </h2>
       <hr class="post-line">
       <div class="post">
         <div class="row">
@@ -73,6 +73,13 @@
                   <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)">
                     <i class="fas fa-trash"></i> </button>
                 </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6">
+            <div class="users mt-5">
+              <div class="suggetion-card">
+                
               </div>
             </div>
           </div>

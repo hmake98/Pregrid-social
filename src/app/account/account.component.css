@@ -20,6 +20,10 @@ h1{
     font-family: 'Varela Round', sans-serif;
 }
 
+h2{
+    font-family: 'Varela Round', sans-serif;
+}
+
 .img-responsive{
     border-radius: 50%;
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
@@ -112,6 +116,7 @@ h1{
 }
 
 .btn-intro{
+    text-align: left;
     width: 200px;
     background: linear-gradient(270deg,#B24592,#F15F79);
     outline: none;

@@ -15,6 +15,7 @@ export class AccountComponent implements OnInit {
   user_bio:string;
   user_dob:string;
   user_city:string;
+  noPost: boolean;
 
   constructor(private change:ChangeDetectorRef) {
     
@@ -26,6 +27,9 @@ export class AccountComponent implements OnInit {
       this.user_post = [];
       for(let key in res.val()){
         this.user_post.unshift({key:key, value:res.val()[key]});
+      }
+      if(this.user_post.length === 0){
+        this.noPost = true;
       }
       firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
         for(let key in res.val()){
