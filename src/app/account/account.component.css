@@ -102,15 +102,34 @@ h1{
     cursor: pointer;
 }
 
-.btn{
+.intro{
+    width: 500px;
+}
+
+.intro .collapse{
+    background: #fff;
+    border-radius: 15px;
+}
+
+.btn-intro{
+    width: 200px;
     background: linear-gradient(270deg,#B24592,#F15F79);
     outline: none;
     border: none;
+    color: #fff;
 }
 
 @media only screen and (max-width: 769px){
     .container{
         overflow-x: hidden;
+    }
+
+    .btn-intro{
+        width: 100%;
+    }
+
+    .intro{
+        width: 100%;
     }
 }
 

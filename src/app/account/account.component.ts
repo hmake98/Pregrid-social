@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
-import { User } from '../user.model';
 import * as firebase from 'firebase';
 import { Post } from '../post.model';
+import { User } from '../user.model';
 
 @Component({
   selector: 'app-account',
@@ -10,36 +10,48 @@ import { Post } from '../post.model';
 }) 
 export class AccountComponent implements OnInit {
 
-  user:User;
+  user:User = new User();
   user_post:any = [];
   user_bio:string;
   user_dob:string;
   user_city:string;
-  avail_bio:boolean;
-  avail_dob:boolean;
-  avail_city:boolean;
 
-  constructor(private change:ChangeDetectorRef) {}
+  constructor(private change:ChangeDetectorRef) {
+    
+  }
 
   ngOnInit() {
     this.user = JSON.parse(localStorage.getItem('user'));
     firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
       this.user_post = [];
       for(let key in res.val()){
-        //console.log(res.val()[key].userid);
-        //if(res.val()[key].userid === this.user.userid){
-          this.user_post.unshift({key:key, value:res.val()[key]});
-        //}
+        this.user_post.unshift({key:key, value:res.val()[key]});
       }
+      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+        for(let key in res.val()){
+          if(key === "bio"){           
+            this.user.bio = res.val()[key];
+            localStorage.setItem('user', JSON.stringify(this.user));
+          }
+        }     
+      });
+      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+        for(let key in res.val()){
+          if(key === "dob"){
+            this.user.dob = res.val()[key];
+            localStorage.setItem('user', JSON.stringify(this.user));
+          }
+        }     
+      });
+      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+        for(let key in res.val()){
+          if(key === "city"){
+            this.user.city = res.val()[key];
+            localStorage.setItem('user', JSON.stringify(this.user));
+          }
+        }     
+      });
       this.change.detectChanges();
-    });
-    firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
-      for(let key in res.val()){
-        if(res.val()[key].bio){
-          this.avail_bio = true;
-          this.user_bio = res.val()[key].bio;
-        }
-      }
     });
   }
 
@@ -48,7 +60,6 @@ export class AccountComponent implements OnInit {
   }
 
   giveLike(post){
-    debugger
     firebase.database().ref('posts/'+post+'/like').update({[this.user.userid]: true});
     this.change.detectChanges();
   }
@@ -62,18 +73,15 @@ export class AccountComponent implements OnInit {
   }
 
   saveBio(){
-    console.log(this.user_bio);
     firebase.database().ref('signup/'+this.user.userid).update({bio: this.user_bio});
   }
 
   saveDob(){
-    console.log(this.user_dob);
     firebase.database().ref('signup/'+this.user.userid).update({dob: this.user_dob});
     
   }
 
   saveCity(){
-    console.log(this.user_city);
     firebase.database().ref('signup/'+this.user.userid).update({city: this.user_city});
   }
 

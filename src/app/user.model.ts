@@ -5,4 +5,6 @@ export class User{
     gender:string;
     password:string;
     bio:string;
+    dob:string;
+    city:string;
 }
