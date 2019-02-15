@@ -115,6 +115,13 @@ h2{
     border-radius: 15px;
 }
 
+.edit-img{
+    margin-left: -70px;
+    margin-top: 200px;
+    background: #eee;
+    border-radius: 50%;
+}
+
 .btn-intro{
     text-align: left;
     width: 200px;

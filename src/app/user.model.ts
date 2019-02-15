@@ -7,4 +7,5 @@ export class User{
     bio:string;
     dob:string;
     city:string;
+    url:string;
 }

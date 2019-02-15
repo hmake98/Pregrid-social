@@ -4,6 +4,7 @@ import { PostService } from '../post.service';
 import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
 import * as firebase from 'firebase';
+import { UserService } from '../user.service';
 
 @Component({
   selector: 'app-home',
@@ -23,8 +24,9 @@ export class HomeComponent implements OnInit {
   likes_count;
   post_db_Ref:any;
   null_posts: boolean;
+  news_posts = [];
 
-  constructor(private postservice:PostService, private change:ChangeDetectorRef) {
+  constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService) {
     this.user = JSON.parse(localStorage.getItem('user'));
     //console.log(this.user.userid);  
     this.post.userid = this.user.userid;
@@ -42,6 +44,7 @@ export class HomeComponent implements OnInit {
           let ser = snapshot.val()[key];
           ser.postid = key;
           ser.name = current.users[snapshot.val()[key].userid].name;
+          ser.url = current.users[snapshot.val()[key].userid].url;
           if(ser.post_status === "Public"){
             current.user_post.unshift(ser);
           }
@@ -52,10 +55,15 @@ export class HomeComponent implements OnInit {
         current.change.detectChanges();
       });  
     });
+    this.userservice.getNews().subscribe(
+      (res) => {
+        this.news_posts.push(...res['articles']);
+      }, 
+      (err) => console.log(err) );
   }
 
   ngOnDestroy(): void {
-    this.post_db_Ref.off();    
+    this.post_db_Ref.off();
   }
 
   postStatus(postForm){

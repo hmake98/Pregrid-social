@@ -12,7 +12,7 @@
         <div class="col-md-2">
             <div class="post-block">
                 <select [(ngModel)]="post.post_status">
-                    <option value="Public"> Public <i class="fas fa-globe-asia"></i>  </option>
+                    <option value="Public"> Public <i class="fas fa-globe-asia"></i> </option>
                     <option value="Onlyme"> Only me <i class="fas fa-lock"></i> </option>
                 </select>
                 <button class="btn btn-primary btn-post mt-4" (click)="postStatus(f)"> Post </button>
@@ -22,11 +22,11 @@
     <hr>
     <h1 class="text-center header-text"> Posts </h1>
     <div class="row">
-        <div class="col-md-8">
+        <div class="col-md-6">
             <div class="posts" *ngFor="let item of user_post">
                 <div class="card">
-                    <h5 class="card-head"> <img src="https://mnsearch.org/wp-content/uploads/2014/10/blank-2017.jpg"
-                            class="img-profile img-responsive mr-2" width="30px" height="30px"> {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                    <h5 class="card-head"> <img src="{{item.url}}"
+                            class="img-profile img-responsive mr-2" width="30px" height="30px" (error)="item.url = 'assets/images/profile.jpg'"> {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
                     </h5>
                     <div class="card-body">
                         <p class="card-text"> {{item.status}} </p>
@@ -35,6 +35,26 @@
                         </button>
                         <button class="btn btn-danger btn-delete ml-2" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)">
                             <i class="fas fa-trash"></i> </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="news-section">
+                <div class="news-cards">
+                    <h2 class="news-header"> News </h2>
+                    <hr>
+                    <div class="news-card row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+                        *ngFor="let blog of news_posts; let img;">
+                        <div class="col p-4 d-flex flex-column position-static">
+                            <strong class="d-inline-block mb-2 text-primary"> India </strong>
+                            <div class="mb-1 text-muted">{{blog.publishedAt}}</div>
+                            <p class="card-text mb-auto">{{blog.title}}</p>
+                            <a href="{{blog.url}}" class="stretched-link">Continue reading</a>
+                        </div>
+                        <div class="col-auto d-none d-lg-block">
+                            <img src="{{blog.urlToImage}}" width="200px" height="250px" alt="image" (error)="blog.urlToImage = 'assets/images/notfound.png'">
+                        </div>
                     </div>
                 </div>
             </div>

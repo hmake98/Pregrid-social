@@ -1,7 +1,7 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as firebase from 'firebase';
-import { Post } from '../post.model';
 import { User } from '../user.model';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-account',
@@ -16,13 +16,20 @@ export class AccountComponent implements OnInit {
   user_dob:string;
   user_city:string;
   noPost: boolean;
+  urlimg:string;
+  defaultImage: string = "assets/images/profile.jpg";
 
-  constructor(private change:ChangeDetectorRef) {
-    
+  constructor(private change:ChangeDetectorRef, private activatedRoute:ActivatedRoute) {
+    this.activatedRoute.params.subscribe(params => {
+      if(params.userid){
+        this.user = JSON.parse(localStorage.getItem('user'));
+      }else{
+        this.user = JSON.parse(localStorage.getItem('user'));
+      }
+    });
   }
 
   ngOnInit() {
-    this.user = JSON.parse(localStorage.getItem('user'));
     firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
       this.user_post = [];
       for(let key in res.val()){
@@ -51,6 +58,14 @@ export class AccountComponent implements OnInit {
         for(let key in res.val()){
           if(key === "city"){
             this.user.city = res.val()[key];
+            localStorage.setItem('user', JSON.stringify(this.user));
+          }
+        }     
+      });
+      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+        for(let key in res.val()){
+          if(key === "url"){
+            this.user.url = res.val()[key];
             localStorage.setItem('user', JSON.stringify(this.user));
           }
         }     
@@ -87,6 +102,13 @@ export class AccountComponent implements OnInit {
 
   saveCity(){
     firebase.database().ref('signup/'+this.user.userid).update({city: this.user_city});
+  }
+
+  saveUrl(){
+    if(this.urlimg !== "" &&  this.urlimg !== " "){
+      firebase.database().ref('signup/'+this.user.userid).update({url: this.urlimg});
+      this.urlimg = "";
+    }
   }
 
 }

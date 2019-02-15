@@ -15,6 +15,7 @@ import { NgHttpLoaderModule } from 'ng-http-loader';
 
 firebase.initializeApp(environment.firebaseConfig);
 
+
 @NgModule({
   declarations: [
     AppComponent,

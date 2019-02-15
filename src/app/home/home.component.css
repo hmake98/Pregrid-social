@@ -67,7 +67,7 @@ select{
 /* card customization */
 
 .posts{
-    margin: 30px;
+    margin: 30px 10px 10px 10px;
 }
 
 .card{
@@ -96,3 +96,23 @@ select{
     text-align: center;
     padding-bottom: 30px;
 }
+
+/* news-section */
+.news-section{
+    margin-top: 30px;
+    padding: 15px;
+    border-radius: 15px;
+    background: #eee;
+}
+
+.news-header{
+    text-align: center;
+    font-family: 'Varela Round', sans-serif;
+}
+
+.news-card{
+    border-radius: 15px;
+    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    background: #fff;
+}
+
