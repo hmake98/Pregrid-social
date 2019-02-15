@@ -31,3 +31,9 @@ input {
     outline: none;
     border: none;
 }
+
+@media only screen and (max-width: 600px){
+    .container{
+        padding: 40px;
+    }
+}
