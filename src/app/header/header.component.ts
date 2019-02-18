@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import { User } from '../user.model';
 
@@ -11,8 +10,9 @@ import { User } from '../user.model';
 export class HeaderComponent implements OnInit {
   
   user:User;
+  selectuser:string;
 
-  constructor(private userservice:UserService, private router:Router) { 
+  constructor(private router:Router) { 
     this.user = JSON.parse(localStorage.getItem('user'));
   }
 
@@ -22,6 +22,10 @@ export class HeaderComponent implements OnInit {
   logout(){
     localStorage.removeItem('user');
     this.router.navigate(['login']);
+  }
+
+  searchUser(){
+    console.log(this.selectuser); 
   }
 
 }

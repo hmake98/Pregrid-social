@@ -1,26 +1,17 @@
-.dropdown-menu{
+.dropdown-menu {
     margin-left: -59px;
 }
 
-.navbar{
+.navbar {
     width: 100%;
     font-family: 'Lato', sans-serif;
-    background: linear-gradient(270deg,#B24592,#F15F79);
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-}
-
-.searchbar{
-    margin: 0;
+    background: linear-gradient(270deg, #B24592, #F15F79);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
 
-@media only screen and (max-width: 768px){
-    .dropdown-menu{
+@media only screen and (max-width: 768px) {
+    .dropdown-menu {
         margin: 0;
-    }
-
-    .searchbar{
-        width: 100%;
-        margin-top: 10px;
     }
 }

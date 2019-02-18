@@ -19,6 +19,7 @@
     "@angular/platform-browser": "~7.1.0",
     "@angular/platform-browser-dynamic": "~7.1.0",
     "@angular/router": "~7.1.0",
+    "@ng-select/ng-select": "^2.15.3",
     "angular-encryption-service": "^0.1.0",
     "angularfire2": "^5.1.1",
     "bcrypt": "^3.0.3",

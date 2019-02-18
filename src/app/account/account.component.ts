@@ -18,60 +18,78 @@ export class AccountComponent implements OnInit {
   noPost: boolean;
   urlimg:string;
   defaultImage: string = "assets/images/profile.jpg";
+  exist_user: boolean = true;
 
   constructor(private change:ChangeDetectorRef, private activatedRoute:ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
       if(params.userid){
-        this.user = JSON.parse(localStorage.getItem('user'));
+        firebase.database().ref('signup/'+params.userid).on('value', (res)=>{
+          this.user = {...res.val(), userid:params.userid};
+          this.getUser();
+        });
+        //this.user = JSON.parse(localStorage.getItem('user'));
       }else{
         this.user = JSON.parse(localStorage.getItem('user'));
+        this.getUser();
       }
     });
   }
 
   ngOnInit() {
-    firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
-      this.user_post = [];
-      for(let key in res.val()){
-        this.user_post.unshift({key:key, value:res.val()[key]});
-      }
-      if(this.user_post.length === 0){
-        this.noPost = true;
-      }
-      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+  }
+
+  getUser() {
+    let temp_user = JSON.parse(localStorage.getItem('user'));
+    if(this.user.userid === temp_user.userid){
+      this.exist_user = true;
+      firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
+        this.user_post = [];
+
         for(let key in res.val()){
-          if(key === "bio"){           
-            this.user.bio = res.val()[key];
-            localStorage.setItem('user', JSON.stringify(this.user));
+          this.user_post.unshift({key:key, value:res.val()[key]});
+        }
+
+        if(this.user_post.length === 0){
+          this.noPost = true;
+        }
+
+        firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+          for(let key in res.val()){
+            if(key === "bio"){
+              this.user.bio = res.val()[key];
+              localStorage.setItem('user', JSON.stringify(this.user));
+            }
+            if(key === "dob"){
+              this.user.dob = res.val()[key];
+              localStorage.setItem('user', JSON.stringify(this.user));
+            }
+            if(key === "city"){
+              this.user.city = res.val()[key];
+              localStorage.setItem('user', JSON.stringify(this.user));
+            }
+            if(key === "url"){
+              this.user.url = res.val()[key];
+              localStorage.setItem('user', JSON.stringify(this.user));
+            }
           }
-        }     
+        });
+        this.change.detectChanges();
       });
-      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+    }else{
+      this.exist_user = false;
+      firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
+        this.user_post = [];
+
         for(let key in res.val()){
-          if(key === "dob"){
-            this.user.dob = res.val()[key];
-            localStorage.setItem('user', JSON.stringify(this.user));
-          }
-        }     
-      });
-      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
-        for(let key in res.val()){
-          if(key === "city"){
-            this.user.city = res.val()[key];
-            localStorage.setItem('user', JSON.stringify(this.user));
-          }
-        }     
-      });
-      firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
-        for(let key in res.val()){
-          if(key === "url"){
-            this.user.url = res.val()[key];
-            localStorage.setItem('user', JSON.stringify(this.user));
-          }
-        }     
-      });
+          this.user_post.unshift({key:key, value:res.val()[key]});
+        }
+
+        if(this.user_post.length === 0){
+          this.noPost = true;
+        }
+      });   
       this.change.detectChanges();
-    });
+    }
   }
 
   removeStatus(p_key){

@@ -12,6 +12,7 @@ import { HttpClientModule } from '@angular/common/http';
 import * as firebase from "firebase";
 import { environment } from 'src/environments/environment';
 import { NgHttpLoaderModule } from 'ng-http-loader';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 firebase.initializeApp(environment.firebaseConfig);
 
@@ -29,6 +30,7 @@ firebase.initializeApp(environment.firebaseConfig);
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    NgSelectModule,
     HttpClientModule,
     NgHttpLoaderModule.forRoot()
   ],

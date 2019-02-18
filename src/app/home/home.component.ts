@@ -5,6 +5,7 @@ import { Post } from '../post.model';
 import { NgForm } from '@angular/forms';
 import * as firebase from 'firebase';
 import { UserService } from '../user.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -26,7 +27,7 @@ export class HomeComponent implements OnInit {
   null_posts: boolean;
   news_posts = [];
 
-  constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService) {
+  constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService, private router:Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
     //console.log(this.user.userid);  
     this.post.userid = this.user.userid;
@@ -49,6 +50,8 @@ export class HomeComponent implements OnInit {
             current.user_post.unshift(ser);
           }
         }
+        //console.log(current.user_post);
+        
         if(this.user_post.length === 0){
           this.null_posts = true;
         }
@@ -95,6 +98,10 @@ export class HomeComponent implements OnInit {
 
   isLiked(post){
     return (post.like !== undefined && post.like[this.user.userid] !== undefined)? true : false;
+  }
+
+  toProfile(post){
+    this.router.navigate(['/account/'+post.userid]);
   }
 
 }

@@ -2,7 +2,7 @@
 <div class="container">
   <div class="pregrid-img">
     <img [src]="user.url" class="img-responsive" width="250px" height="250px" (error)="user.url = 'assets/images/profile.jpg'">
-    <button class="btn edit-img" data-toggle="modal" data-target="#exampleModal"> <i class="fas fa-plus fa-2x"></i></button>
+    <button class="btn edit-img" data-toggle="modal" data-target="#exampleModal" [hidden]="!exist_user"> <i class="fas fa-plus fa-2x"></i></button>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
       <div class="modal-dialog" role="document">
@@ -41,7 +41,7 @@
           <p> <i class="fas fa-calendar-day"></i> &nbsp; Date of Birth : {{ user.dob }} </p>
           <div class="intro">
             <button class="btn btn-intro btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
-              aria-expanded="false" aria-controls="multiCollapseExample1"> <i class="fas fa-plus"></i> &nbsp; <span
+              aria-expanded="false" aria-controls="multiCollapseExample1" [hidden]="!exist_user"> <i class="fas fa-plus"></i> &nbsp; <span
                 *ngIf="user.bio"> Edit Bio </span> <span *ngIf="!user.bio"> Add Bio </span>
             </button>
             <div class="collapse multi-collapse" id="multiCollapseExample1">
@@ -51,7 +51,7 @@
               </div>
             </div><br>
             <button class="btn btn-intro btn-primary mt-2" data-toggle="collapse" href="#multiCollapseExample2" role="button"
-              aria-expanded="false" aria-controls="multiCollapseExample2"> <i class="fas fa-plus"></i> &nbsp; <span
+              aria-expanded="false" aria-controls="multiCollapseExample2" [hidden]="!exist_user"> <i class="fas fa-plus"></i> &nbsp; <span
                 *ngIf="user.dob"> Edit Date of Birth </span> <span *ngIf="!user.dob"> Add Date
                 of Birth </span> </button>
             <div class="collapse multi-collapse" id="multiCollapseExample2">
@@ -61,7 +61,7 @@
               </div>
             </div><br>
             <button class="btn btn-intro btn-primary mt-2" data-toggle="collapse" href="#multiCollapseExample3" role="button"
-              aria-expanded="false" aria-controls="multiCollapseExample3"> <i class="fas fa-plus"></i> &nbsp; <span
+              aria-expanded="false" aria-controls="multiCollapseExample3" [hidden]="!exist_user"> <i class="fas fa-plus"></i> &nbsp; <span
                 *ngIf="user.city"> Edit City </span> <span *ngIf="!user.city"> Add City </span>
             </button>
             <div class="collapse multi-collapse" id="multiCollapseExample3">
@@ -90,7 +90,7 @@
                   <button type="button" class="btn btn-like" (click)="giveLike(item.key)" id="back-color"> <i class="fas fa-thumbs-up"
                       [style.color]="(isLiked(item.value))?'#3a5998':'black'"></i> {{ getLikes(item.value) }}
                   </button>
-                  <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)">
+                  <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)" [hidden]="!exist_user">
                     <i class="fas fa-trash"></i> </button>
                 </div>
               </div>

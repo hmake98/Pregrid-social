@@ -26,7 +26,7 @@
             <div class="posts" *ngFor="let item of user_post">
                 <div class="card">
                     <h5 class="card-head"> <img src="{{item.url}}"
-                            class="img-profile img-responsive mr-2" width="30px" height="30px" (error)="item.url = 'assets/images/profile.jpg'"> {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                            class="img-profile img-responsive mr-2" width="30px" height="30px" (error)="item.url = 'assets/images/profile.jpg'" (click)="toProfile(item)"> {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
                     </h5>
                     <div class="card-body">
                         <p class="card-text"> {{item.status}} </p>
@@ -62,7 +62,7 @@
     </div>
     <div class="last-post-message">
         <hr class="last-hr">
-        <h5 *ngIf="!null_posts"> You catched all posts! </h5>
+        <h5 *ngIf="!null_posts"> <i class="fas fa-check fa-right"></i> You catched all posts! </h5>
         <h5 *ngIf="null_posts"> No posts found! </h5>
     </div>
 </div>
