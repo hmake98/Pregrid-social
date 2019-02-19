@@ -121,3 +121,8 @@ select{
     background: #fff;
 }
 
+@media only screen and (max-width: 768px){
+    .post-block{
+        margin-top: 2em;
+    }
+}

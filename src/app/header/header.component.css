@@ -9,9 +9,35 @@
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
+.mob-mode{
+    display: none;
+}
+
+.custom {
+    width: 25%;
+}
+
 
 @media only screen and (max-width: 768px) {
-    .dropdown-menu {
-        margin: 0;
+    .navbar{
+        display: none;
+    }
+
+    .mob-mode{
+        display: block;
+        background: linear-gradient(270deg, #B24592, #F15F79);
+    }
+
+    .fas{
+        color: #fff; 
+        cursor: pointer; 
+    }
+
+    .custom {
+        padding-left: 20px;
+        padding-right: 20px;
+        width: 100%;
+        border: none;
+        border-radius: 15px;
     }
 }

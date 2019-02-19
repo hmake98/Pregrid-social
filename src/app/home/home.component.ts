@@ -6,6 +6,7 @@ import { NgForm } from '@angular/forms';
 import * as firebase from 'firebase';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-home',
@@ -43,15 +44,13 @@ export class HomeComponent implements OnInit {
         current.user_post = [];
         for(let key in snapshot.val()){
           let ser = snapshot.val()[key];
-          ser.postid = key;
+          ser.postid = key;     
           ser.name = current.users[snapshot.val()[key].userid].name;
           ser.url = current.users[snapshot.val()[key].userid].url;
           if(ser.post_status === "Public"){
             current.user_post.unshift(ser);
           }
         }
-        //console.log(current.user_post);
-        
         if(this.user_post.length === 0){
           this.null_posts = true;
         }
@@ -84,7 +83,21 @@ export class HomeComponent implements OnInit {
   }
 
   removeStatus(p_key){
-    firebase.database().ref('posts/').child(p_key).remove();
+    //firebase.database().ref('posts/').child(p_key).remove();
+    swal({
+      text: "Are you sure want to Delete?",
+      icon: "warning",
+      buttons: ["Cancel",true],
+      dangerMode: true
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        firebase.database().ref('posts/').child(p_key).remove();
+        swal("Your post has been deleted!", {
+          icon: "success",
+        });
+      }
+    });
   }
 
   giveLike(post){

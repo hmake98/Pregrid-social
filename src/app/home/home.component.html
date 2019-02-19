@@ -44,7 +44,7 @@
                 <div class="news-cards">
                     <h2 class="news-header"> News </h2>
                     <hr>
-                    <div class="news-card row no-gutters border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
+                    <div class="news-card row no-gutters overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative"
                         *ngFor="let blog of news_posts; let img;">
                         <div class="col p-4 d-flex flex-column position-static">
                             <strong class="d-inline-block mb-2 text-primary"> India </strong>
@@ -53,7 +53,7 @@
                             <a href="{{blog.url}}" class="stretched-link">Continue reading</a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
-                            <img src="{{blog.urlToImage}}" width="200px" height="250px" alt="image" (error)="blog.urlToImage = 'assets/images/notfound.png'">
+                            <img src="{{blog.urlToImage}}" width="250px" height="250px" alt="image" (error)="blog.urlToImage = 'assets/images/notfound.png'">
                         </div>
                     </div>
                 </div>

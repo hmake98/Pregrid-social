@@ -16,7 +16,7 @@ export class AccountComponent implements OnInit {
   user_dob:string;
   user_city:string;
   noPost: boolean;
-  urlimg:string;
+  urlimg:string= 'dsdss';
   defaultImage: string = "assets/images/profile.jpg";
   exist_user: boolean = true;
 
@@ -36,11 +36,14 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+
   }
 
   getUser() {
     let temp_user = JSON.parse(localStorage.getItem('user'));
     if(this.user.userid === temp_user.userid){
+      console.log("in if");
+      
       this.exist_user = true;
       firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
         this.user_post = [];
@@ -73,9 +76,10 @@ export class AccountComponent implements OnInit {
             }
           }
         });
-        this.change.detectChanges();
       });
+      this.change.detectChanges();
     }else{
+      console.log("in else");
       this.exist_user = false;
       firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
         this.user_post = [];
@@ -93,7 +97,21 @@ export class AccountComponent implements OnInit {
   }
 
   removeStatus(p_key){
-    firebase.database().ref('posts/').child(p_key).remove();
+    //firebase.database().ref('posts/').child(p_key).remove();
+    swal({
+      text: "Are you sure want to Delete?",
+      icon: "warning",
+      buttons: ["Cancel",true],
+      dangerMode: true
+    })
+    .then((willDelete) => {
+      if (willDelete) {
+        firebase.database().ref('posts/').child(p_key).remove();
+        swal("Your post has been deleted!", {
+          icon: "success",
+        });
+      }
+    });
   }
 
   giveLike(post){
