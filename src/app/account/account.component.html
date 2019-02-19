@@ -1,7 +1,7 @@
 <app-header> </app-header>
 <div class="container">
   <div class="pregrid-img">
-    <img [src]="user.url" class="img-responsive" width="250px" height="250px" (error)="user.url = 'assets/images/profile.jpg'">
+    <img [src]="user.url" class="img-responsive img-center" width="250px" height="250px" (error)="user.url = 'assets/images/profile.jpg'">
     <button class="btn edit-img" data-toggle="modal" data-target="#exampleModal" [hidden]="!exist_user"> <i class="fas fa-plus fa-2x"></i></button>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
@@ -14,8 +14,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <input type="text" name="urlimg" id="urlimg" [(ngModel)]="urlimg">
-            <!-- <input class="form-control w-100" placeholder="Enter link to image" type="text" name="urlimg" [(ngModel)]="urlimg"> -->
+            <input class="form-control w-100" placeholder="Enter link to image" type="text" name="urlimg" [(ngModel)]="urlimg">
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>

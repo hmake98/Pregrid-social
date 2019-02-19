@@ -24,6 +24,7 @@
     }
 
     .mob-mode{
+        overflow-x:hidden;
         display: block;
         background: linear-gradient(270deg, #B24592, #F15F79);
     }
