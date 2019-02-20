@@ -23,10 +23,10 @@ export class HomeComponent implements OnInit {
   users:any;
   user_post = [];
   allowDelete:boolean = false;
-  likes_count;
   post_db_Ref:any;
   null_posts: boolean;
   news_posts = [];
+  showLoader:boolean;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService, private router:Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -36,6 +36,7 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.showLoader = true;
     let current = this;
     firebase.database().ref('signup/').once('value', (res) => {
       current.users = res.val();    
@@ -49,6 +50,7 @@ export class HomeComponent implements OnInit {
           ser.url = current.users[snapshot.val()[key].userid].url;       
           if(ser.post_status === "Public"){
             current.user_post.unshift(ser);
+            this.showLoader = false;
           }
         }
         if(this.user_post.length === 0){
@@ -85,7 +87,7 @@ export class HomeComponent implements OnInit {
   removeStatus(p_key){
     //firebase.database().ref('posts/').child(p_key).remove();
     swal({
-      text: "Are you sure want to Delete?",
+      text: "Are you sure! you want to Delete?",
       icon: "warning",
       buttons: ["Cancel",true],
       dangerMode: true
@@ -102,6 +104,13 @@ export class HomeComponent implements OnInit {
 
   giveLike(post){
     firebase.database().ref('posts/'+post.postid+'/like').update({[this.user.userid]: true});
+    firebase.database().ref('posts/'+post.postid+'/unlike/'+this.user.userid).remove();
+    this.change.detectChanges();
+  }
+
+  giveUnLike(post){
+    firebase.database().ref('posts/'+post.postid+'/unlike').update({[this.user.userid]: true});
+    firebase.database().ref('posts/'+post.postid+'/like/'+this.user.userid).remove();
     this.change.detectChanges();
   }
 
@@ -109,8 +118,16 @@ export class HomeComponent implements OnInit {
     return (post.like === undefined)?'':Object.keys(post.like).length;
   }
 
+  getUnLikes(post){
+    return (post.unlike === undefined)?'':Object.keys(post.unlike).length;
+  }
+
   isLiked(post){
     return (post.like !== undefined && post.like[this.user.userid] !== undefined)? true : false;
+  }
+
+  isUnLiked(post){
+    return (post.unlike !== undefined && post.unlike[this.user.userid] !== undefined)? true : false;
   }
 
   toProfile(post){

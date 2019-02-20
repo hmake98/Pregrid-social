@@ -19,6 +19,7 @@ export class AccountComponent implements OnInit {
   urlimg:string;
   defaultImage: string = "assets/images/profile.jpg";
   exist_user: boolean = true;
+  showSpinner: boolean;
 
   constructor(private change:ChangeDetectorRef, private activatedRoute:ActivatedRoute) {
     this.activatedRoute.params.subscribe(params => {
@@ -35,19 +36,19 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
-
+    this.showSpinner = true;
   }
 
   getUser() {
     let temp_user = JSON.parse(localStorage.getItem('user'));
-    if(true){    
+    if(this.user.userid === temp_user.userid){    
       this.exist_user = true;
       firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
         this.user_post = [];
-
         for(let key in res.val()){
           this.user_post.unshift({key:key, value:res.val()[key]});
         }
+        this.showSpinner = false;
 
         if(this.user_post.length === 0){
           this.noPost = true;
@@ -75,7 +76,6 @@ export class AccountComponent implements OnInit {
         });
       });
     }else{
-      console.log("in else");
       this.exist_user = false;
       firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
         this.user_post = [];
@@ -83,6 +83,7 @@ export class AccountComponent implements OnInit {
         for(let key in res.val()){
           this.user_post.unshift({key:key, value:res.val()[key]});
         }
+        this.showSpinner = false;
 
         if(this.user_post.length === 0){
           this.noPost = true;
@@ -98,7 +99,7 @@ export class AccountComponent implements OnInit {
   removeStatus(p_key){
     //firebase.database().ref('posts/').child(p_key).remove();
     swal({
-      text: "Are you sure want to Delete?",
+      text: "Are you sure! you want to Delete?",
       icon: "warning",
       buttons: ["Cancel",true],
       dangerMode: true

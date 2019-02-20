@@ -13,7 +13,7 @@
           <label for="exampleFormControlInput1">Email address</label>
           <input type="email" #uemail="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
             name="email" class="form-control" placeholder="name@example.com" [(ngModel)]="user.email" email required>
-          <small class="text-red" *ngIf="uemail.invalid && uemail.touched"> Enter valid email! </small>
+          <small class="text-red" *ngIf="uemail.errors && uemail.errors.pattern && uemail.touched"> Enter valid email! </small>
         </div>
         <div class="form-group">
           <label for="exampleFormControlSelect1">Gender</label>
@@ -27,7 +27,7 @@
           <label for="exampleInputPassword1">Password</label>
           <input type="password" #upass="ngModel" class="form-control" id="exampleInputPassword1" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Enter password" name="paswd"
             [(ngModel)]="user.password" required>
-          <small class="text-red" *ngIf="upass.invalid && upass.dirty && upass.touched"> Enter valid Password </small>
+          <small class="text-red" *ngIf="upass.errors && upass.errors.pattern && upass.touched"> Enter valid Password </small>
           <small> Pattern : abc123 </small>
         </div>
         <div class="form-group">
@@ -37,7 +37,7 @@
         </div>
         <hr>
         <small> By signing up, you agree our terms and conditions. </small><br><br>
-        <button type="submit" class="btn btn-primary w-100" [disabled]="f.invalid">Signup</button><br>
+        <button type="submit" class="btn btn-primary w-100">Signup</button><br>
         <small> Already a user? <a [routerLink]="['/login']"> Login </a> now.</small>
       </form>
     </div>

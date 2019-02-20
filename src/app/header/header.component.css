@@ -23,8 +23,10 @@
         display: none;
     }
 
-    .mob-mode{
-        overflow-x:hidden;
+    .mob-mode{  
+        z-index: 999;
+        width: 100%;
+        overflow: hidden;
         display: block;
         background: linear-gradient(270deg, #B24592, #F15F79);
     }
@@ -35,10 +37,8 @@
     }
 
     .custom {
-        padding-left: 20px;
-        padding-right: 20px;
         width: 100%;
         border: none;
-        border-radius: 15px;
+        position: absolute;
     }
 }

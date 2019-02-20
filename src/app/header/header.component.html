@@ -1,12 +1,12 @@
 <div class="mob-mode">
     <div class="searchbar-comp pt-2 pb-2">
-        <ng-select class="custom" [(ngModel)]="finduser" placeholder="Search user...">
-            <ng-option *ngFor="let item of users" [value]="item">
-                {{item}}
+        <ng-select class="custom" [(ngModel)]="finduser" placeholder="Search user..." (change)="goProfile()">
+            <ng-option class="custom-option" *ngFor="let item of users" [value]="item.userid">
+                {{item.name}}
             </ng-option>
         </ng-select>
     </div>
-    <div class="buttons-deck mt-2 pb-3">
+    <div class="buttons-deck mt-5 pb-3">
         <div class="row justify-content-around">
             <a class="btn-head" [routerLink]="['/home']" routerLinkActive="router-link-active"> <i class="fas fa-comment-alt fa-2x"></i>
             </a>
@@ -24,9 +24,9 @@
             <span class="navbar-toggler-icon"></span>
         </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ng-select class="custom" [(ngModel)]="finduser" placeholder="Search user...">
-                <ng-option *ngFor="let item of users" [value]="item">
-                    {{item}}
+            <ng-select class="custom" [(ngModel)]="finduser" placeholder="Search user..." (change)="goProfile()">
+                <ng-option *ngFor="let item of users" [value]="item.userid">
+                    {{item.name}}
                 </ng-option>
             </ng-select>
             <ul class="navbar-nav ml-auto">

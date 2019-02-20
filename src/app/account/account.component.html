@@ -14,7 +14,10 @@
             </button>
           </div>
           <div class="modal-body">
-            <input class="form-control w-100" placeholder="Enter link to image" type="text" [name]="urlimg" [(ngModel)]="urlimg">
+            <input class="form-control w-100" #imgurl="ngModel" placeholder="Enter link to image" pattern="/(https?:\/\/.*\.(?:png|jpg))/i
+            "
+              type="url" [name]="urlimg" [(ngModel)]="urlimg">
+            <small *ngIf="imgurl.errors && imgurl.errors.pattern"> Not valid Url! </small>
           </div>
           <div class="modal-footer">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
@@ -41,32 +44,34 @@
           <p> <i class="fas fa-calendar-day"></i> &nbsp; Date of Birth : {{ user.dob }} </p>
           <div class="intro">
             <button class="btn btn-intro btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button"
-              aria-expanded="false" aria-controls="multiCollapseExample1" [hidden]="!exist_user"> <i class="fas fa-plus"></i> &nbsp; <span
-                *ngIf="user.bio"> Edit Bio </span> <span *ngIf="!user.bio"> Add Bio </span>
+              aria-expanded="false" aria-controls="multiCollapseExample1" [hidden]="!exist_user"> <i class="fas fa-plus"></i>
+              &nbsp; <span *ngIf="user.bio"> Edit Bio </span> <span *ngIf="!user.bio"> Add Bio </span>
             </button>
             <div class="collapse multi-collapse" id="multiCollapseExample1">
               <div class="card-body btn-popper">
-                <input type="text" class="form-control" placeholder="Enter bio..." name="user_bio" [(ngModel)]="user_bio">
+                <input type="text" class="form-control" placeholder="Enter bio..." name="user_bio" [(ngModel)]="user_bio"
+                  [value]="user.bio">
                 <button type="button" class="btn btn-success mt-2" (click)="saveBio()"> Save </button>
               </div>
             </div><br>
             <button class="btn btn-intro btn-primary mt-2" data-toggle="collapse" href="#multiCollapseExample2" role="button"
-              aria-expanded="false" aria-controls="multiCollapseExample2" [hidden]="!exist_user"> <i class="fas fa-plus"></i> &nbsp; <span
-                *ngIf="user.dob"> Edit Date of Birth </span> <span *ngIf="!user.dob"> Add Date
+              aria-expanded="false" aria-controls="multiCollapseExample2" [hidden]="!exist_user"> <i class="fas fa-plus"></i>
+              &nbsp; <span *ngIf="user.dob"> Edit Date of Birth </span> <span *ngIf="!user.dob"> Add Date
                 of Birth </span> </button>
             <div class="collapse multi-collapse" id="multiCollapseExample2">
               <div class="card-body btn-popper">
-                <input type="date" class="form-control" name="user_dob" [(ngModel)]="user_dob">
+                <input type="date" class="form-control" name="user_dob" [(ngModel)]="user_dob" [value]="user.dob">
                 <button type="button" class="btn btn-success mt-2" (click)="saveDob()"> Save </button>
               </div>
             </div><br>
             <button class="btn btn-intro btn-primary mt-2" data-toggle="collapse" href="#multiCollapseExample3" role="button"
-              aria-expanded="false" aria-controls="multiCollapseExample3" [hidden]="!exist_user"> <i class="fas fa-plus"></i> &nbsp; <span
-                *ngIf="user.city"> Edit City </span> <span *ngIf="!user.city"> Add City </span>
+              aria-expanded="false" aria-controls="multiCollapseExample3" [hidden]="!exist_user"> <i class="fas fa-plus"></i>
+              &nbsp; <span *ngIf="user.city"> Edit City </span> <span *ngIf="!user.city"> Add City </span>
             </button>
             <div class="collapse multi-collapse" id="multiCollapseExample3">
               <div class="card-body btn-popper">
-                <input type="text" class="form-control" placeholder="Enter city..." name="user_city" [(ngModel)]="user_city">
+                <input type="text" class="form-control" placeholder="Enter city..." name="user_city" [(ngModel)]="user_city"
+                  [value]="user.city">
                 <button type="button" class="btn btn-success mt-2" (click)="saveCity()"> Save </button>
               </div>
             </div><br>
@@ -77,20 +82,25 @@
     <div class="pregrid-profile-posts">
       <h2> Posts </h2>
       <hr class="post-line">
+      <div class="loader" *ngIf="showSpinner">
+        <div class="spinner"></div>
+      </div>
+      <div class="" *ngIf="noPost"> No post found! </div>
       <div class="post">
         <div class="row">
           <div class="col-md-6">
             <div class="posts" *ngFor="let item of user_post">
               <div class="card">
-                <h5 class="card-head"> <img src="https://mnsearch.org/wp-content/uploads/2014/10/blank-2017.jpg" class="img-profile mr-2"
-                    width="30px" height="30px"> {{user.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                <h5 class="card-head"> <img [src]="user.url" class="img-profile mr-2" width="30px" height="30px"
+                    (error)="user.url = 'assets/images/profile.jpg'"> {{user.name}} <i class="fas fa-ellipsis-v float-right"></i>
                 </h5>
                 <div class="card-body">
                   <p class="card-text"> {{item.value.status}} </p>
                   <button type="button" class="btn btn-like" (click)="giveLike(item.key)" id="back-color"> <i class="fas fa-thumbs-up"
                       [style.color]="(isLiked(item.value))?'#3a5998':'black'"></i> {{ getLikes(item.value) }}
                   </button>
-                  <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)" [hidden]="!exist_user">
+                  <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)"
+                    [hidden]="!exist_user">
                     <i class="fas fa-trash"></i> </button>
                 </div>
               </div>
@@ -98,6 +108,11 @@
           </div>
         </div>
       </div>
+    </div>
+    <div class="last-post-message" *ngIf="!noPost">
+      <hr class="last-hr">
+      <h5 *ngIf="!null_posts"> <i class="fas fa-check fa-right"></i> You catched all posts! </h5>
+      <h5 *ngIf="null_posts"> No posts found! </h5>
     </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 <app-header></app-header>
 <div class="container">
-    <div class="row">
+    <div class="row scrape">
         <div class="col-md-10">
             <div class="post-block">
                 <form #f="ngForm">
@@ -23,15 +23,22 @@
     <h1 class="text-center header-text"> Posts </h1>
     <div class="row">
         <div class="col-md-6">
+            <div class="loader" *ngIf="showLoader">
+                <div class="spinner"></div>
+            </div>
             <div class="posts" *ngFor="let item of user_post">
                 <div class="card">
-                    <h5 class="card-head"> <img src="{{item.url}}"
-                            class="img-profile img-responsive mr-2" width="30px" height="30px" (error)="item.url = 'assets/images/profile.jpg'" (click)="toProfile(item)"> {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                    <h5 class="card-head"> <img src="{{item.url}}" class="img-profile img-responsive mr-2" width="30px"
+                            height="30px" (error)="item.url = 'assets/images/profile.jpg'" (click)="toProfile(item)">
+                        {{item.name}} <i class="fas fa-ellipsis-v float-right"></i>
                     </h5>
                     <div class="card-body">
                         <p class="card-text"> {{item.status}} </p>
                         <button type="button" class="btn btn-like" (click)="giveLike(item)" id="back-color"> <i class="fas fa-thumbs-up"
                                 [style.color]="(isLiked(item))?'#3a5998':'black'"></i> {{ getLikes(item) }}
+                        </button>
+                        <button type="button" class="btn btn-like" (click)="giveUnLike(item)" id="back-color"> <i class="fas fa-thumbs-down"
+                                [style.color]="(isUnLiked(item))?'#3a5998':'black'"></i> {{ getUnLikes(item) }}
                         </button>
                         <button class="btn btn-danger btn-delete ml-2" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)">
                             <i class="fas fa-trash"></i> </button>
@@ -50,7 +57,7 @@
                             <strong class="d-inline-block mb-2 text-primary"> India </strong>
                             <div class="mb-1 text-muted">{{blog.publishedAt}}</div>
                             <p class="card-text mb-auto">{{blog.title}}</p>
-                            <a href="{{blog.url}}" class="stretched-link">Continue reading</a>
+                            <a href="{{blog.url}}" class="stretched-link" target="_blank">Continue reading</a>
                         </div>
                         <div class="col-auto d-none d-lg-block">
                             <img src="{{blog.urlToImage}}" width="250px" height="250px" alt="image" (error)="blog.urlToImage = 'assets/images/notfound.png'">

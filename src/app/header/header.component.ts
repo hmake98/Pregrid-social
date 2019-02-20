@@ -22,13 +22,13 @@ export class HeaderComponent implements OnInit {
   ngOnInit() {
     this.userDataCall = firebase.database().ref('signup/').on('value', (res) => {
        for (let key in res.val()) {
-          this.users.push(res.val()[key].name);
+          this.users.push({name: res.val()[key].name, userid:key});
         }
     });
   }
 
-  ngOnDestroy(): void {
-    //this.userDataCall.off();
+  goProfile(){
+    this.router.navigate(['/account/'+this.finduser]);
   }
 
   logout() {

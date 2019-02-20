@@ -1,31 +1,31 @@
-.container{
+.container {
     background: #fff;
     width: 100%;
     min-height: 100vh;
     font-family: 'Lato', sans-serif;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
 }
 
-.post-block{
+.post-block {
     margin-top: 5em;
 }
 
-.post-area{
+.post-area {
     border: 1px solid #eee;
     outline: none;
     background: #eee;
     border-radius: 10px;
 }
 
-.header-text{
+.header-text {
     color: #3e3e3e;
 }
 
-h1{
+h1 {
     font-family: 'Varela Round', sans-serif;
 }
 
-select{
+select {
     width: 100%;
     height: 40px;
     background: #eee;
@@ -35,94 +35,131 @@ select{
 
 /* buttons */
 
-.btn-post{
+.btn-post {
     width: 100%;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
-    background: linear-gradient(270deg,#B24592,#F15F79);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background: linear-gradient(270deg, #B24592, #F15F79);
     outline: none;
     border: none;
 }
 
-.btn-like{
+.btn-like {
     background: none;
     border: none;
     outline: none;
 }
 
-.btn-delete{
+.btn-delete {
     border: none;
     background: none;
     color: #333;
 }
 
-.btn-delete:hover{
+.btn-delete:hover {
     color: red;
 }
 
-.last-hr{
+.last-hr {
     width: 100px;
 }
 
-.fa-ellipsis-v:hover{
+.fa-ellipsis-v:hover {
     color: #eee;
     cursor: pointer;
 }
 
 /* card customization */
 
-.posts{
+.posts {
     margin: 30px 10px 10px 10px;
 }
 
-.card{
+.card {
     border-radius: 10px;
     border-radius: 15px;
 }
 
-.card:hover{
-    box-shadow: 0 11px 20px rgba(0,0,0,0.25), 0 7px 7px rgba(0,0,0,0.22);
+.card:hover {
+    box-shadow: 0 11px 20px rgba(0, 0, 0, 0.25), 0 7px 7px rgba(0, 0, 0, 0.22);
 }
 
-.card-head{
+.card-head {
     background: #fff;
     border-top-left-radius: 15px;
     border-top-right-radius: 15px;
     padding: 20px;
 }
 
-.img-profile{
+.img-profile {
     border-radius: 50%;
     display: inline;
     cursor: pointer;
 }
 
-.last-post-message{
+.last-post-message {
     font-family: 'Varela Round', sans-serif;
     text-align: center;
     padding-bottom: 30px;
 }
 
 /* news-section */
-.news-section{
+.news-section {
     margin-top: 30px;
     padding: 15px;
     border-radius: 15px;
     background: #eee;
 }
 
-.news-header{
+.news-header {
     text-align: center;
     font-family: 'Varela Round', sans-serif;
 }
 
-.news-card{
+.news-card {
     border-radius: 20px;
-    box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background: #fff;
 }
 
-@media only screen and (max-width: 768px){
-    .post-block{
+/* spinner */
+.loader {
+    display: flex;
+    height: 50vh;
+    justify-content: center;
+    align-items: center;
+}
+
+.spinner {
+    height: 5vh;
+    width: 5vh;
+    border: 6px solid #eee;
+    border-top-color: #B24592;
+    border-radius: 100%;
+    animation: rotation 0.6s infinite linear 0.25s;
+
+    /* the opacity is used to lazyload the spinner, see animation delay */
+    /* this avoid the spinner to be displayed when visible for a very short period of time */
+    opacity: 0;
+}
+
+@keyframes rotation {
+    from {
+        opacity: 1;
+        transform: rotate(0deg);
+    }
+
+    to {
+        opacity: 1;
+        transform: rotate(359deg);
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .post-block {
         margin-top: 2em;
+    }
+
+    .spinner-1{
+        display: none;
     }
 }
