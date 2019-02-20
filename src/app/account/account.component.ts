@@ -16,7 +16,7 @@ export class AccountComponent implements OnInit {
   user_dob:string;
   user_city:string;
   noPost: boolean;
-  urlimg:string= 'dsdss';
+  urlimg:string;
   defaultImage: string = "assets/images/profile.jpg";
   exist_user: boolean = true;
 
@@ -27,7 +27,6 @@ export class AccountComponent implements OnInit {
           this.user = {...res.val(), userid:params.userid};
           this.getUser();
         });
-        //this.user = JSON.parse(localStorage.getItem('user'));
       }else{
         this.user = JSON.parse(localStorage.getItem('user'));
         this.getUser();
@@ -41,9 +40,7 @@ export class AccountComponent implements OnInit {
 
   getUser() {
     let temp_user = JSON.parse(localStorage.getItem('user'));
-    if(this.user.userid === temp_user.userid){
-      console.log("in if");
-      
+    if(true){    
       this.exist_user = true;
       firebase.database().ref('posts/').orderByChild('userid').equalTo(this.user.userid).on('value', (res) => {
         this.user_post = [];
@@ -57,6 +54,7 @@ export class AccountComponent implements OnInit {
         }
 
         firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
+          let skrem = res.val().keys().length()
           for(let key in res.val()){
             if(key === "bio"){
               this.user.bio = res.val()[key];
@@ -74,10 +72,14 @@ export class AccountComponent implements OnInit {
               this.user.url = res.val()[key];
               localStorage.setItem('user', JSON.stringify(this.user));
             }
-          }
+            skrem--;
+            if(skrem == 0){
+              this.change.detectChanges();
+            }
+          }  
+
         });
       });
-      this.change.detectChanges();
     }else{
       console.log("in else");
       this.exist_user = false;

@@ -11,7 +11,7 @@
         </div>
         <div class="form-group">
           <label for="exampleFormControlInput1">Email address</label>
-          <input type="email" #uemail="ngModel" [ngClass]="{'is-invalid': f.submitted && uemail.invalid }" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
+          <input type="email" #uemail="ngModel" pattern="^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$"
             name="email" class="form-control" placeholder="name@example.com" [(ngModel)]="user.email" email required>
           <small class="text-red" *ngIf="uemail.invalid && uemail.touched"> Enter valid email! </small>
         </div>

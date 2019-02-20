@@ -36,17 +36,23 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
+    console.log("ng on init")
     let current = this;
-    current.users = firebase.database().ref('signup/').once('value', (res) => {
+    firebase.database().ref('signup/').once('value', (res) => {
       current.users = res.val();
+      //console.log(current.users);
+      
       this.post_db_Ref = firebase.database().ref('posts/').orderByChild("timestamp")
       this.post_db_Ref.on('value', (snapshot) => {
+        //console.log(snapshot.val())
         current.user_post = [];
         for(let key in snapshot.val()){
-          let ser = snapshot.val()[key];
+          let ser:any = snapshot.val()[key];
+          //console.log(current.users);
+          // console.log(snapshot.val()[key].userid);
           ser.postid = key;     
           ser.name = current.users[snapshot.val()[key].userid].name;
-          ser.url = current.users[snapshot.val()[key].userid].url;
+          ser.url = current.users[snapshot.val()[key].userid].url;       
           if(ser.post_status === "Public"){
             current.user_post.unshift(ser);
           }
