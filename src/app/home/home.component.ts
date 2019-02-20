@@ -36,20 +36,14 @@ export class HomeComponent implements OnInit {
   }
 
   ngOnInit() {
-    console.log("ng on init")
     let current = this;
     firebase.database().ref('signup/').once('value', (res) => {
-      current.users = res.val();
-      //console.log(current.users);
-      
+      current.users = res.val();    
       this.post_db_Ref = firebase.database().ref('posts/').orderByChild("timestamp")
       this.post_db_Ref.on('value', (snapshot) => {
-        //console.log(snapshot.val())
         current.user_post = [];
         for(let key in snapshot.val()){
           let ser:any = snapshot.val()[key];
-          //console.log(current.users);
-          // console.log(snapshot.val()[key].userid);
           ser.postid = key;     
           ser.name = current.users[snapshot.val()[key].userid].name;
           ser.url = current.users[snapshot.val()[key].userid].url;       
@@ -83,7 +77,7 @@ export class HomeComponent implements OnInit {
       if(this.post.post_status === undefined){
         this.post.post_status = "Public";
       }
-      firebase.database().ref('posts/').push(this.post);  
+      firebase.database().ref('posts/').push(this.post);
       this.postForm.reset();
     }
   }

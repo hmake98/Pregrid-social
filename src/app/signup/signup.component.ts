@@ -1,8 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { User } from '../user.model'; 
 import { NgForm } from '@angular/forms';
-import { UserService } from '../user.service';
 import { Router } from '@angular/router';
+import * as firebase from 'firebase';
 
 @Component({
   selector: 'app-signup',
@@ -15,7 +15,7 @@ export class SignupComponent implements OnInit {
   cfmpas:string;
   loggedIn: boolean = false;
 
-  constructor(private userservice:UserService, private router: Router) { 
+  constructor(private router: Router) { 
     this.user.gender = "";
   }
 
@@ -27,10 +27,11 @@ export class SignupComponent implements OnInit {
 
   signup(userform){
     if(this.userform.valid){
-      this.userservice.signupUser(this.user).subscribe();
-      this.loggedIn = true;
-      localStorage.setItem('user', JSON.stringify(this.user));
-      this.router.navigate(['/login']);
+      firebase.database().ref('signup/').push(this.user).then(res => {
+        this.loggedIn = true;
+        localStorage.setItem('user', JSON.stringify({...this.user, userid: res.key}));
+        this.router.navigate(['/login']);
+      });
     }
   }
 

@@ -54,7 +54,6 @@ export class AccountComponent implements OnInit {
         }
 
         firebase.database().ref('signup/'+this.user.userid).on('value', (res) => {
-          let skrem = res.val().keys().length()
           for(let key in res.val()){
             if(key === "bio"){
               this.user.bio = res.val()[key];
@@ -72,12 +71,7 @@ export class AccountComponent implements OnInit {
               this.user.url = res.val()[key];
               localStorage.setItem('user', JSON.stringify(this.user));
             }
-            skrem--;
-            if(skrem == 0){
-              this.change.detectChanges();
-            }
           }  
-
         });
       });
     }else{
@@ -94,8 +88,11 @@ export class AccountComponent implements OnInit {
           this.noPost = true;
         }
       });   
-      this.change.detectChanges();
     }
+  }
+
+  changeRef(){
+    this.change.detectChanges();
   }
 
   removeStatus(p_key){
