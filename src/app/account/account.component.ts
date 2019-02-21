@@ -3,7 +3,7 @@ import * as firebase from 'firebase';
 import { User } from '../user.model';
 import { ActivatedRoute } from '@angular/router';
 import swal from 'sweetalert';
-
+declare var $:any;
 @Component({
   selector: 'app-account',
   templateUrl: './account.component.html',
@@ -163,10 +163,12 @@ export class AccountComponent implements OnInit {
     firebase.storage().ref('/userprofile/'+this.imageName).put(this.blobFile).then((snapshot) => {
       snapshot.ref.getDownloadURL().then((res) => {
         this.user.url = res;
+        firebase.database().ref('signup/'+this.user.userid).update({url: res});
         console.log(this.user.url);
         localStorage.setItem('user', JSON.stringify(this.user));
       });
     });
+    $('#exampleModal').modal('hide');
   }
 
 }
