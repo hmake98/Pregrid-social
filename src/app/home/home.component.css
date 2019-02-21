@@ -69,7 +69,6 @@ select {
 }
 
 /* card customization */
-
 .posts {
     margin: 30px 10px 10px 10px;
 }
@@ -141,6 +140,12 @@ select {
     /* this avoid the spinner to be displayed when visible for a very short period of time */
     opacity: 0;
 }
+
+.dropdown-menu{
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+}
+
 
 @keyframes rotation {
     from {
