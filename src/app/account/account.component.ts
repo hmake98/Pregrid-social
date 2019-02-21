@@ -164,7 +164,6 @@ export class AccountComponent implements OnInit {
       snapshot.ref.getDownloadURL().then((res) => {
         this.user.url = res;
         firebase.database().ref('signup/'+this.user.userid).update({url: res});
-        console.log(this.user.url);
         localStorage.setItem('user', JSON.stringify(this.user));
       });
     });
