@@ -26,14 +26,14 @@
         <div class="form-group">
           <label for="exampleInputPassword1">Password</label>
           <input type="password" #upass="ngModel" class="form-control" id="exampleInputPassword1" pattern="^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{8,}$" placeholder="Enter password" name="paswd"
-            [(ngModel)]="user.password" required>
+            [(ngModel)]="userpass" required>
           <small class="text-red" *ngIf="upass.errors && upass.errors.pattern && upass.touched"> Enter valid Password </small>
           <small> Pattern : abc123 </small>
         </div>
         <div class="form-group">
           <input type="password" #cpass="ngModel" class="form-control" placeholder="Reneter Password" name="cfmpas"
             [(ngModel)]="cfmpas" [disabled]="upass.invalid" required>
-          <div class="alert alert-danger" *ngIf="user.password !== cfmpas && cpass.touched"> <small> Password not matched! </small> </div> 
+          <div class="alert alert-danger" *ngIf="userpass !== cfmpas && cpass.touched"> <small> Password not matched! </small> </div> 
         </div>
         <hr>
         <small> By signing up, you agree our terms and conditions. </small><br><br>

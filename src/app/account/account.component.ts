@@ -2,6 +2,7 @@ import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as firebase from 'firebase';
 import { User } from '../user.model';
 import { ActivatedRoute } from '@angular/router';
+import swal from 'sweetalert';
 
 @Component({
   selector: 'app-account',
@@ -20,11 +21,16 @@ export class AccountComponent implements OnInit {
   defaultImage: string = "assets/images/profile.jpg";
   exist_user: boolean = true;
   showSpinner: boolean;
+  imageName: string;
+  imageSize: number;
+  blobFile:any;
+
 
   constructor(private change:ChangeDetectorRef, private activatedRoute:ActivatedRoute) {
+    this.showSpinner = true;
     this.activatedRoute.params.subscribe(params => {
       if(params.userid){
-        firebase.database().ref('signup/'+params.userid).on('value', (res)=>{
+        firebase.database().ref('signup/'+params.userid).on('value', (res)=>{   
           this.user = {...res.val(), userid:params.userid};
           this.getUser();
         });
@@ -36,7 +42,6 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.showSpinner = true;
   }
 
   getUser() {
@@ -140,11 +145,28 @@ export class AccountComponent implements OnInit {
     firebase.database().ref('signup/'+this.user.userid).update({city: this.user_city});
   }
 
-  saveUrl(){
-    if(this.urlimg !== "" &&  this.urlimg !== " "){
-      firebase.database().ref('signup/'+this.user.userid).update({url: this.urlimg});
-      this.urlimg = "";
+  saveImage(event){
+    this.imageName = event.srcElement.files[0].name;
+    document.getElementById("hola").innerHTML = this.imageName;
+    this.imageSize = event.srcElement.files[0].size/1024;
+    const file = event.srcElement.files[0]
+    this.blobFile = new Blob([file]);
+  }
+
+  save(){
+    if(this.urlimg){
+      if(this.urlimg !== "" &&  this.urlimg !== " "){
+        firebase.database().ref('signup/'+this.user.userid).update({url: this.urlimg});
+        this.urlimg = "";
+      }
     }
+    firebase.storage().ref('/userprofile/'+this.imageName).put(this.blobFile).then((snapshot) => {
+      snapshot.ref.getDownloadURL().then((res) => {
+        this.user.url = res;
+        console.log(this.user.url);
+        localStorage.setItem('user', JSON.stringify(this.user));
+      });
+    });
   }
 
 }
