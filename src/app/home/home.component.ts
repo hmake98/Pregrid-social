@@ -7,7 +7,7 @@ import * as firebase from 'firebase';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
-
+import * as $ from "jquery";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -27,6 +27,7 @@ export class HomeComponent implements OnInit {
   null_posts: boolean;
   news_posts = [];
   showLoader:boolean;
+  open: boolean;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService, private router:Router) {
     this.user = JSON.parse(localStorage.getItem('user'));

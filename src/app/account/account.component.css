@@ -124,6 +124,7 @@ h2 {
     margin-top: 200px;
     background: #eee;
     border-radius: 50%;
+    outline: none !important;
 }
 
 .btn-intro {
@@ -133,6 +134,18 @@ h2 {
     outline: none;
     border: none;
     color: #fff;
+}
+
+.btn-success{
+    background: linear-gradient(270deg, #B24592, #F15F79);
+    border: none;
+    outline: none !important;
+}
+
+.btn-danger{
+    background: linear-gradient(270deg, #B24592, #F15F79);
+    border: none;
+    outline: none !important;
 }
 
 .last-post-message {
@@ -176,6 +189,32 @@ h2 {
     padding: 0 10px;
 }
 
+.dropdown-menu{
+    z-index: 999;
+    position: absolute;
+    margin-left: -143px; 
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    cursor: pointer;
+    border: 1px solid #F8F9FA;
+    border-top-left-radius: 15px;
+    border-bottom-left-radius: 15px;
+    border-bottom-right-radius: 15px;
+}
+
+.dropdown-item{
+    padding: 10px;
+    user-select: none;
+}
+
+.dropdown-item:hover{
+    color: #fff !important;
+    background: linear-gradient(270deg, #B24592, #F15F79);
+}
+
+.dropdown-menu.show{
+    animation: slide 0.5s;
+}
+
 @keyframes rotation {
     from {
         opacity: 1;
@@ -187,11 +226,6 @@ h2 {
         transform: rotate(359deg);
     }
 }
-
-
-
-
-
 
 @media only screen and (max-width: 769px) {
     .container {

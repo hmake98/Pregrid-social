@@ -101,7 +101,13 @@
               <div class="card">
                 <h5 class="card-head"> <img [src]="user.url" class="img-profile mr-2" width="30px" height="30px"
                     (error)="user.url = 'assets/images/profile.jpg'">
-                  {{user.name}} <i class="fas fa-ellipsis-v float-right"></i>
+                  {{user.name}} <i class="fas fa-ellipsis-v float-right" id="dropdownMenuButton" data-toggle="dropdown"
+                    aria-haspopup="true" aria-expanded="false"></i>
+                  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item"><i class="fas fa-edit"></i> &nbsp; Edit </a>
+                    <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)"><i
+                        class="fas fa-trash"></i> &nbsp; Delete</a>
+                  </div>
                 </h5>
                 <div class="card-body">
                   <p class="card-text"> {{item.value.status}} </p>
@@ -109,8 +115,7 @@
                       [style.color]="(isLiked(item.value))?'#3a5998':'black'"></i> {{ getLikes(item.value) }}
                   </button>
                   <button class="btn btn-delete ml-2" *ngIf="user.userid === item.value.userid" (click)="removeStatus(item.key)"
-                    [hidden]="!exist_user">
-                    <i class="fas fa-trash"></i> </button>
+                    [hidden]="!exist_user"> </button>
                 </div>
               </div>
             </div>
