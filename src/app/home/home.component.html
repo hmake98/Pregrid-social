@@ -26,7 +26,7 @@
             <div class="loader" *ngIf="showLoader">
                 <div class="spinner"></div>
             </div>
-            <div class="posts" *ngFor="let item of user_post">
+            <div class="posts" *ngFor="let item of user_post; let i = index;">
                 <div class="card">
                     <h5 class="card-head"> <img src="{{item.url}}" class="img-profile img-responsive mr-2" width="30px"
                             height="30px" (error)="item.url = 'assets/images/profile.jpg'" (click)="toProfile(item)">
@@ -34,12 +34,18 @@
                         <i class="fas fa-ellipsis-v float-right" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"></i>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                            <a class="dropdown-item"> &nbsp; Edit </a>
-                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)"><i class="fas fa-trash"></i> &nbsp; Delete</a>
+                            <a class="dropdown-item" *ngIf="user.userid !== item.userid"> &nbsp; No actions! </a>
+                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="editPost(i, item)"> &nbsp; Edit </a>
+                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)"> &nbsp; Delete </a>
                         </div>
                     </h5>
                     <div class="card-body">
-                        <p class="card-text"> {{item.status}} </p>
+                        <p class="card-text" class="hide_edit"> {{item.status}} </p>
+                        <div class="edit">
+                            <textarea type="text" class="form-control editer" #edit_post> </textarea>
+                            <button class="btn btn-post_edit mt-2" (click)="saveEditedPost(item, edit_post, i)"> Save </button>
+                            <button class="btn btn-post_edit ml-2 mt-2" (click)="cancelPost(i)"> Cancel </button> <br>
+                        </div>
                         <button type="button" class="btn btn-like" (click)="giveLike(item)" id="back-color"> <i class="fas fa-thumbs-up"
                                 [style.color]="(isLiked(item))?'#3a5998':'black'"></i> {{ getLikes(item) }}
                         </button>

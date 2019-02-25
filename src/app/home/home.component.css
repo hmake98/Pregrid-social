@@ -49,6 +49,14 @@ select {
     outline: none;
 }
 
+.btn-post_edit{
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
+    background: linear-gradient(270deg, #B24592, #F15F79);
+    outline: none;
+    border: none;
+    color: #fff;
+}
+
 .btn-delete {
     border: none;
     background: none;
@@ -155,15 +163,21 @@ select {
 }
 
 .dropdown-item:hover{
+    border-radius: 8px;
     color: #fff !important;
     background: linear-gradient(270deg, #B24592, #F15F79);
 }
 
 .dropdown-menu.show{
-    animation: slide 0.5s;
+    animation: fade 0.5s;
 }
 
-@keyframes slide{
+.edit{
+    display: none;
+    animation: bounceIn 0.5s;
+}
+
+@keyframes fade{
     0%{
         opacity: 0;
     }

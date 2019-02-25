@@ -24,6 +24,7 @@ export class AccountComponent implements OnInit {
   imageName: string;
   imageSize: number;
   blobFile:any;
+  edit_post:string;
 
 
   constructor(private change:ChangeDetectorRef, private activatedRoute:ActivatedRoute) {
@@ -132,6 +133,10 @@ export class AccountComponent implements OnInit {
     return (post.like !== undefined && post.like[this.user.userid] !== undefined)? true : false;
   }
 
+  getUnLikes(post){
+    return (post.value.unlike === undefined)?'':Object.keys(post.value.unlike).length;
+  }
+
   saveBio(){
     firebase.database().ref('signup/'+this.user.userid).update({bio: this.user_bio});
   }
@@ -168,6 +173,25 @@ export class AccountComponent implements OnInit {
       });
     });
     $('#exampleModal').modal('hide');
+  }
+
+  editPost(i, item){
+    this.edit_post = item.status;
+    document.getElementsByClassName("edit")[i]['style'].display = 'block'; 
+    document.getElementsByClassName("hide_edit")[i]['style'].display = 'none';
+    document.getElementsByClassName("edit")[i]['value'] = this.edit_post;
+  }
+
+  cancelPost(i){
+    document.getElementsByClassName("edit")[i]['style'].display = 'none';
+    document.getElementsByClassName("hide_edit")[i]['style'].display = 'block';
+    document.getElementsByClassName("editer")[i]['value'] = '';
+  }
+
+  saveEditedPost(post, edit_post, i){
+    firebase.database().ref('posts/'+post.key).update({status: edit_post.value});
+    document.getElementsByClassName("edit")[i]['style'].display = 'none';
+    document.getElementsByClassName("hide_edit")[i]['style'].display = 'block';
   }
 
 }

@@ -28,6 +28,7 @@ export class HomeComponent implements OnInit {
   news_posts = [];
   showLoader:boolean;
   open: boolean;
+  edit_post: string;
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService, private router:Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -133,6 +134,25 @@ export class HomeComponent implements OnInit {
 
   toProfile(post){
     this.router.navigate(['/account/'+post.userid]);
+  }
+
+  editPost(i, item){
+    this.edit_post = item.status;
+    document.getElementsByClassName("edit")[i]['style'].display = 'block'; 
+    document.getElementsByClassName("hide_edit")[i]['style'].display = 'none';
+    document.getElementsByClassName("edit")[i]['value'] = this.edit_post;
+  }
+
+  cancelPost(i){
+    document.getElementsByClassName("edit")[i]['style'].display = 'none';
+    document.getElementsByClassName("hide_edit")[i]['style'].display = 'block';
+    document.getElementsByClassName("editer")[i]['value'] = '';
+  }
+
+  saveEditedPost(post, edit_post, i){
+    firebase.database().ref('posts/'+post.postid).update({status: edit_post.value});
+    document.getElementsByClassName("edit")[i]['style'].display = 'none';
+    document.getElementsByClassName("hide_edit")[i]['style'].display = 'block';
   }
 
 }
