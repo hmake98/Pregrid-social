@@ -28,8 +28,8 @@
             </div>
             <div class="posts" *ngFor="let item of user_post; let i = index;">
                 <div class="card">
-                    <h5 class="card-head"> <img src="{{item.url}}" class="img-profile img-responsive mr-2" width="30px"
-                            height="30px" (error)="item.url = 'assets/images/profile.jpg'" (click)="toProfile(item)">
+                    <h5 class="card-head"> <img (error)="item.url = 'assets/images/profile.jpg'" alt="..." src="{{item.url}}" class="img-profile img-responsive mr-2" width="30px"
+                            height="30px" (click)="toProfile(item)">
                         {{item.name}}
                         <i class="fas fa-ellipsis-v float-right" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"></i>
