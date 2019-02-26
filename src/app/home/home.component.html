@@ -6,6 +6,22 @@
                 <form #f="ngForm">
                     <textarea class="form-control post-area" name="post" placeholder="Enter your status here..." rows="4"
                         [(ngModel)]="post.status"></textarea>
+                    <hr>
+                    <div class="row">
+                        <div class="col">
+                            <label class="btn btn-img"> <i class="fas fa-image"></i> &nbsp; Photos
+                                <input type="file" class="btn btn-primary" accept="image/*" (change)="uploadImage($event)"
+                                    multiple>
+                            </label>
+                        </div>
+                        <div class="col-md-12 mt-2">
+                            <div *ngFor="let photo of photosContainer"></div>
+                            <!-- <button class="btn btn-primary btn-img"> <i class="fas fa-image"></i> Photos </button> -->
+                            <div id="photos-container">
+                                
+                            </div>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
@@ -28,22 +44,25 @@
             </div>
             <div class="posts" *ngFor="let item of user_post; let i = index;">
                 <div class="card">
-                    <h5 class="card-head"> <img (error)="item.url = 'assets/images/profile.jpg'" alt="..." src="{{item.url}}" class="img-profile img-responsive mr-2" width="30px"
-                            height="30px" (click)="toProfile(item)">
+                    <h5 class="card-head"> <img (error)="item.url = 'assets/images/profile.jpg'" alt="..." src="{{item.url}}"
+                            class="img-profile img-responsive mr-2" width="30px" height="30px" (click)="toProfile(item)">
                         {{item.name}}
                         <i class="fas fa-ellipsis-v float-right" id="dropdownMenuButton" data-toggle="dropdown"
                             aria-haspopup="true" aria-expanded="false"></i>
                         <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             <a class="dropdown-item" *ngIf="user.userid !== item.userid"> &nbsp; No actions! </a>
-                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="editPost(i, item)"> &nbsp; Edit </a>
-                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)"> &nbsp; Delete </a>
+                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="editPost(i, item)">
+                                &nbsp; Edit </a>
+                            <a class="dropdown-item" *ngIf="user.userid === item.userid" (click)="removeStatus(item.postid)">
+                                &nbsp; Delete </a>
                         </div>
                     </h5>
                     <div class="card-body">
                         <p class="card-text" class="hide_edit"> {{item.status}} </p>
                         <div class="edit">
                             <textarea type="text" class="form-control editer" #edit_post> </textarea>
-                            <button class="btn btn-post_edit mt-2" (click)="saveEditedPost(item, edit_post, i)"> Save </button>
+                            <button class="btn btn-post_edit mt-2" (click)="saveEditedPost(item, edit_post, i)"> Save
+                            </button>
                             <button class="btn btn-post_edit ml-2 mt-2" (click)="cancelPost(i)"> Cancel </button> <br>
                         </div>
                         <button type="button" class="btn btn-like" (click)="giveLike(item)" id="back-color"> <i class="fas fa-thumbs-up"

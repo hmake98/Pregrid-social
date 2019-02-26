@@ -7,7 +7,6 @@ import * as firebase from 'firebase';
 import { UserService } from '../user.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
-import * as $ from "jquery";
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -29,6 +28,8 @@ export class HomeComponent implements OnInit {
   showLoader:boolean;
   open: boolean;
   edit_post: string;
+  photosContainer = [];
+  blobContainer = [];
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService, private router:Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -154,6 +155,65 @@ export class HomeComponent implements OnInit {
     document.getElementsByClassName("edit")[i]['style'].display = 'none';
     document.getElementsByClassName("hide_edit")[i]['style'].display = 'block';
   }
+
+  uploadImage(event){
+    let temp = event.srcElement.files;
+    let container = document.getElementById("photos-container");
+    container.innerHTML = '';
+    for(let key in temp){
+      this.photosContainer.push(temp[key]);
+      let reader = new FileReader();
+      reader.onload = (e) => {
+        let div = document.createElement("div");
+        div.setAttribute("class", "col-md-6");
+        let img = document.createElement("img");
+        img.setAttribute("src", e.target['result']);
+        img.classList.add("img-gallery");
+        let del = document.createElement("i");
+        del.setAttribute("name", temp[key].name);
+        del.classList.add("fas","fa-trash","delete");
+        del.addEventListener("click", (event:any) => {
+          //console.log(event.path[0].attributes[0].value);
+          let name = event.path[0].attributes[0].value;
+          event.target.closest('div').parentNode.removeChild(event.target.closest('div'));
+          for(let i in temp){
+            let file_name = temp[i].name;
+            console.log(file_name, name, file_name === name);
+            if(temp[i].name === name){
+              delete temp[i];
+            }
+          }
+          console.log(temp);
+        });
+        div.appendChild(del);
+        div.appendChild(img);
+        container.appendChild(div);
+      }
+      reader.readAsDataURL(this.photosContainer[key]);
+    }
+    
+    
+
+  }
+    
+    // console.log(event.srcElement.files[0]);
+    // this.photosContainer.push(event.srcElement.files[0]);
+    // console.log(this.photosContainer);
+    // this.photosContainer.forEach(element => {
+    //   let blobFile = new Blob([element]);
+    //   this.blobContainer.push(blobFile);
+    // });
+    // this.blobContainer.forEach(element => {
+    //   //console.log(element);
+    //   firebase.storage().ref(this.user.userid+'/'+event.srcElement.files[0].name).put(element).then((snapshot) => {
+    //     snapshot.ref.getDownloadURL().then((res) => {
+    //       console.log(res);
+    //       this.urlContainer.push(res);
+    //     });
+    //   });
+    //   console.log(this.urlContainer);
+
+    // });
 
 }
 
