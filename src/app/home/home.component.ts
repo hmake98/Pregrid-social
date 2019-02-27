@@ -29,13 +29,12 @@ export class HomeComponent implements OnInit {
   open: boolean;
   edit_post: string;
   photosContainer = [];
-  blobContainer = [];
+  currentText:string;
+  postUrls = [];
 
   constructor(private postservice:PostService, private change:ChangeDetectorRef, private userservice:UserService, private router:Router) {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    //console.log(this.user.userid);  
+    this.user = JSON.parse(localStorage.getItem('user'));  
     this.post.userid = this.user.userid;
-    //this.getPosts();
   }
 
   ngOnInit() {
@@ -66,29 +65,48 @@ export class HomeComponent implements OnInit {
       (res) => {
         this.news_posts.push(...res['articles']);
       }, 
-      (err) => console.log(err) );
+      (err) => console.log(err) 
+    );
   }
 
   ngOnDestroy(): void {
     this.post_db_Ref.off();
   }
 
+  pushtoArr(data){
+    this.post.post_images.push(data);
+  }
+
   postStatus(postForm){
-    if(this.post.status !== undefined && this.post.status !== ""){
-      let now = new Date();
-      this.post.timestamp = now.getTime();
-      let trimmed_status = this.post.status.trim();
-      this.post.status = trimmed_status;
-      if(this.post.post_status === undefined){
-        this.post.post_status = "Public";
-      }
-      firebase.database().ref('posts/').push(this.post);
-      this.postForm.reset();
-    }
+    let container = document.getElementById("photos-container");
+    container.innerHTML = '';
+    if(this.photosContainer.length != 0){
+    for(let i = 0; i < this.photosContainer.length; i++){
+      console.log(i);
+      firebase.storage().ref(this.user.userid+'/'+'post_image_'+Date.now()+'.png').put(this.photosContainer[i]).then((snapshot) => {
+        snapshot.ref.getDownloadURL().then((res) => {  
+          this.postUrls.push(res);
+        }).then(
+          () => { 
+            console.log(i);
+            if(this.photosContainer.length === i+1){
+              this.post.post_images = this.postUrls;
+              this.post.timestamp = Date.now();
+              if(this.post.post_status === undefined){
+                this.post.post_status = "Public";
+              }
+              firebase.database().ref('posts/').push(this.post);
+              this.postForm.reset();
+              this.photosContainer = [];
+            }
+          }
+        );
+      });
+    } 
+  }
   }
 
   removeStatus(p_key){
-    //firebase.database().ref('posts/').child(p_key).remove();
     swal({
       text: "Are you sure! you want to Delete?",
       icon: "warning",
@@ -138,7 +156,7 @@ export class HomeComponent implements OnInit {
   }
 
   editPost(i, item){
-    this.edit_post = item.status;
+    this.currentText = item.status;
     document.getElementsByClassName("edit")[i]['style'].display = 'block'; 
     document.getElementsByClassName("hide_edit")[i]['style'].display = 'none';
     document.getElementsByClassName("edit")[i]['value'] = this.edit_post;
@@ -161,59 +179,36 @@ export class HomeComponent implements OnInit {
     let container = document.getElementById("photos-container");
     container.innerHTML = '';
     for(let key in temp){
-      this.photosContainer.push(temp[key]);
-      let reader = new FileReader();
-      reader.onload = (e) => {
-        let div = document.createElement("div");
-        div.setAttribute("class", "col-md-6");
-        let img = document.createElement("img");
-        img.setAttribute("src", e.target['result']);
-        img.classList.add("img-gallery");
-        let del = document.createElement("i");
-        del.setAttribute("name", temp[key].name);
-        del.classList.add("fas","fa-trash","delete");
-        del.addEventListener("click", (event:any) => {
-          //console.log(event.path[0].attributes[0].value);
-          let name = event.path[0].attributes[0].value;
-          event.target.closest('div').parentNode.removeChild(event.target.closest('div'));
-          for(let i in temp){
-            let file_name = temp[i].name;
-            console.log(file_name, name, file_name === name);
-            if(temp[i].name === name){
-              delete temp[i];
-            }
-          }
-          console.log(temp);
-        });
-        div.appendChild(del);
-        div.appendChild(img);
-        container.appendChild(div);
+      if (typeof temp[key] == "object") {
+        this.photosContainer.push(temp[key]);
+        let reader = new FileReader();
+        reader.onload = (e) => {
+          let div = document.createElement("div");
+          div.setAttribute("class", "col-md-6");
+          let img = document.createElement("img");
+          img.setAttribute("src", e.target['result']);
+          img.classList.add("img-gallery");
+          let del = document.createElement("i");
+          del.setAttribute("name", temp[key].name);
+          del.classList.add("fas","fa-trash","delete");
+          del.addEventListener("click", (event:any) => {
+            let name = event.path[0].attributes[0].value;       
+            this.photosContainer.forEach(element => {
+              if(element.name === name){
+                let index = this.photosContainer.indexOf(element);
+                this.photosContainer.splice(index, 1);
+                event.target.closest('div').parentNode.removeChild(event.target.closest('div'));
+              }
+            });
+          });
+          div.appendChild(del);
+          div.appendChild(img);
+          container.appendChild(div);
+        }
+      reader.readAsDataURL(new Blob([temp[key]]));
       }
-      reader.readAsDataURL(this.photosContainer[key]);
     }
-    
-    
-
   }
-    
-    // console.log(event.srcElement.files[0]);
-    // this.photosContainer.push(event.srcElement.files[0]);
-    // console.log(this.photosContainer);
-    // this.photosContainer.forEach(element => {
-    //   let blobFile = new Blob([element]);
-    //   this.blobContainer.push(blobFile);
-    // });
-    // this.blobContainer.forEach(element => {
-    //   //console.log(element);
-    //   firebase.storage().ref(this.user.userid+'/'+event.srcElement.files[0].name).put(element).then((snapshot) => {
-    //     snapshot.ref.getDownloadURL().then((res) => {
-    //       console.log(res);
-    //       this.urlContainer.push(res);
-    //     });
-    //   });
-    //   console.log(this.urlContainer);
-
-    // });
 
 }
 

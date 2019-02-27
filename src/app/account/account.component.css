@@ -59,7 +59,7 @@ h2 {
 }
 
 .card {
-    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
     text-align: left;
     border-radius: 10px;
     border-radius: 15px;
@@ -134,13 +134,13 @@ h2 {
     color: #fff;
 }
 
-.btn-success{
+.btn-success {
     background: linear-gradient(270deg, #B24592, #F15F79);
     border: none;
     outline: none !important;
 }
 
-.btn-post_edit{
+.btn-post_edit {
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background: linear-gradient(270deg, #B24592, #F15F79);
     outline: none;
@@ -148,7 +148,7 @@ h2 {
     color: #fff;
 }
 
-.btn-danger{
+.btn-danger {
     background: linear-gradient(270deg, #B24592, #F15F79);
     border: none;
     outline: none !important;
@@ -195,10 +195,10 @@ h2 {
     padding: 0 10px;
 }
 
-.dropdown-menu{
+.dropdown-menu {
     z-index: 999;
     position: absolute;
-    margin-left: -143px; 
+    margin-left: -143px;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     cursor: pointer;
     border: 1px solid #F8F9FA;
@@ -207,32 +207,50 @@ h2 {
     border-bottom-right-radius: 15px;
 }
 
-.dropdown-item{
+.dropdown-item {
     padding: 10px;
     user-select: none;
 }
 
-.dropdown-item:hover{
+.dropdown-item:hover {
     border-radius: 8px;
     color: #fff !important;
     background: linear-gradient(270deg, #B24592, #F15F79);
 }
 
-.dropdown-menu.show{
+.dropdown-menu.show {
     animation: fade 0.5s;
 }
 
-.edit{
+.edit {
     display: none;
     animation: bounceIn 0.5s;
 }
 
-@keyframes fade{
-    0%{
+.photos-container {
+    background: #eee;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.photos-col {
+    line-height: 0;
+    display: grid;
+    grid-template-rows: 1fr 1fr 1fr;
+}
+
+.photos-col img {
+    width: 100% !important;
+    height: auto !important;
+}
+
+@keyframes fade {
+    0% {
         opacity: 0;
     }
 
-    100%{
+    100% {
         opacity: 1;
     }
 }
@@ -252,6 +270,11 @@ h2 {
 @media only screen and (max-width: 769px) {
     .container {
         overflow-x: hidden;
+    }
+
+    .photos-col {
+        flex: 100%;
+        max-width: 100%;
     }
 
     .btn-intro {

@@ -25,6 +25,7 @@ export class AccountComponent implements OnInit {
   imageSize: number;
   blobFile:any;
   edit_post:string;
+  photosContainer = [];
 
 
   constructor(private change:ChangeDetectorRef, private activatedRoute:ActivatedRoute) {
@@ -53,7 +54,11 @@ export class AccountComponent implements OnInit {
         this.user_post = [];
         for(let key in res.val()){
           this.user_post.unshift({key:key, value:res.val()[key]});
+          for(let p in res.val()[key].post_images){
+            this.photosContainer.push(res.val()[key].post_images[p]);
+          }
         }
+        //console.log(this.photosContainer);
         this.showSpinner = false;
 
         if(this.user_post.length === 0){

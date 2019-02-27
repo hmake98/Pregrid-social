@@ -4,4 +4,5 @@ export class Post{
     postid: string;
     timestamp: number;
     post_status: string;
+    post_images: Array<string>;
 }

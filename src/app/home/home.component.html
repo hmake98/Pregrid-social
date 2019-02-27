@@ -18,7 +18,7 @@
                             <div *ngFor="let photo of photosContainer"></div>
                             <!-- <button class="btn btn-primary btn-img"> <i class="fas fa-image"></i> Photos </button> -->
                             <div id="photos-container">
-                                
+
                             </div>
                         </div>
                     </div>
@@ -58,9 +58,12 @@
                         </div>
                     </h5>
                     <div class="card-body">
-                        <p class="card-text" class="hide_edit"> {{item.status}} </p>
+                        <p class="card-text" class="hide_edit"> {{item.status}} </p>                      
+                        <div id="post-image-container" *ngFor="let image of item.post_images">
+                            <img class="img-thumbnail" [src]="image">
+                        </div>
                         <div class="edit">
-                            <textarea type="text" class="form-control editer" #edit_post> </textarea>
+                            <textarea type="text" class="form-control editer" #edit_post [(ngModel)]="currentText"> </textarea>
                             <button class="btn btn-post_edit mt-2" (click)="saveEditedPost(item, edit_post, i)"> Save
                             </button>
                             <button class="btn btn-post_edit ml-2 mt-2" (click)="cancelPost(i)"> Cancel </button> <br>
