@@ -44,6 +44,19 @@ export class AccountComponent implements OnInit {
   }
 
   ngOnInit() {
+    window.onscroll = function(){ stick() };
+    let ele = document.getElementById("stick-top");
+    let sticky = 887;
+
+    function stick(){
+      
+      if(window.pageYOffset >= sticky){
+        ele.classList.add("sticky");
+      } else {
+        ele.classList.remove("sticky");
+      }
+    }
+
   }
 
   getUser() {

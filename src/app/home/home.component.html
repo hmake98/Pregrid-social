@@ -58,15 +58,15 @@
                         </div>
                     </h5>
                     <div class="card-body">
-                        <p class="card-text" class="hide_edit"> {{item.status}} </p>                      
-                        <div id="post-image-container" *ngFor="let image of item.post_images">
-                            <img class="img-thumbnail" [src]="image">
-                        </div>
+                        <p class="card-text" class="hide_edit"> {{item.status}} </p>
                         <div class="edit">
                             <textarea type="text" class="form-control editer" #edit_post [(ngModel)]="currentText"> </textarea>
                             <button class="btn btn-post_edit mt-2" (click)="saveEditedPost(item, edit_post, i)"> Save
                             </button>
                             <button class="btn btn-post_edit ml-2 mt-2" (click)="cancelPost(i)"> Cancel </button> <br>
+                        </div>
+                        <div id="post-image-container">
+                            <img class="img-thumbnail" [src]="image" *ngFor="let image of item.post_images">
                         </div>
                         <button type="button" class="btn btn-like" (click)="giveLike(item)" id="back-color"> <i class="fas fa-thumbs-up"
                                 [style.color]="(isLiked(item))?'#3a5998':'black'"></i> {{ getLikes(item) }}
