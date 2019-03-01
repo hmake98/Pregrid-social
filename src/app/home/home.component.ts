@@ -81,29 +81,35 @@ export class HomeComponent implements OnInit {
     container.innerHTML = '';
     let promises = [];
     /* Promise Code */
-    if (this.photosContainer.length != 0) {
+    if (this.photosContainer.length <= 3 && this.photosContainer.length >= 0) {
       for (let i = 0; i < this.photosContainer.length; i++) {
         promises.push(
           new Promise((resolve, reject) => {
             firebase.storage().ref(this.user.userid).child('post_image_' + Date.now() + '.jpg').put(this.photosContainer[i]).then((snapshot) => {
+              snapshot.ref.getDownloadURL().then((res) => {
+                this.postUrls.push(res);
+              });
               resolve({ file: this.photosContainer[i], snapshot });
             }).catch((err) => {
               console.log(err);
             });
+            console.log(this.postUrls);
           })
         );
       }
       Promise.all(promises).then(result => {
         console.log(result);
-          // this.post.post_images =  this.postUrls;
-          // this.post.timestamp = Date.now();
-          // if (this.post.post_status === undefined) {
-          //   this.post.post_status = "Public";
-          // }
-          // firebase.database().ref('posts/').push(this.post);
-          // this.postForm.reset();
-          // this.photosContainer = [];
+          this.post.post_images =  this.postUrls;
+          this.post.timestamp = Date.now();
+          if (this.post.post_status === undefined) {
+            this.post.post_status = "Public";
+          }
+          firebase.database().ref('posts/').push(this.post);
+          this.postForm.reset();
+          this.photosContainer = [];
       });
+    }else{
+      alert("Having some issues! Even we also don't know. Peace:");
     }
   }
 
