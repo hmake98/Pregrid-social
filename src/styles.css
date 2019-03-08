@@ -13,6 +13,7 @@ body {
     outline: none;
     border: none;
     color: #fff;
+    border-radius: 16px;
 }
 
 .img-gallery{

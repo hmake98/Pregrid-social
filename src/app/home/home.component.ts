@@ -93,6 +93,7 @@ export class HomeComponent implements OnInit {
               console.log(err);
               reject(err);
             });
+            console.log(this.postUrls);
           })
         );
       }
@@ -107,6 +108,8 @@ export class HomeComponent implements OnInit {
         //this.postForm.reset();
         this.photosContainer = [];
       });
+    }else{
+      alert("Having some issues! Even we also don't know. Peace:");
     }
   }
 
