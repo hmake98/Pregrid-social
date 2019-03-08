@@ -115,9 +115,17 @@
                     <button class="btn btn-post_edit mt-2" (click)="saveEditedPost(item, edit_post, i)"> Save </button>
                     <button class="btn btn-post_edit ml-2 mt-2" (click)="cancelPost(i)"> Cancel </button> <br>
                   </div>
-                  <div id="post-image-container" *ngFor="let image of item.value.post_images">
-                    <img class="img-thumbnail" [src]="image">
+
+                  <div class="row gallery mt-3">
+                    <div class="col-md-6 gallery-col" *ngFor="let image of item.value.post_images">
+                      <img class="post-img" [src]="image">
+                    </div>
                   </div>
+
+                  <!-- <div id="post-image-container" *ngFor="let image of item.value.post_images">
+                    <img class="img-thumbnail" [src]="image">
+                  </div> -->
+
                   <button type="button" class="btn btn-like" (click)="giveLike(item.key)" id="back-color"> <i class="fas fa-thumbs-up"
                       [style.color]="(isLiked(item.value))?'#3a5998':'black'"></i> {{ getLikes(item.value) }}
                   </button>
@@ -133,17 +141,47 @@
           <div class="col-md-6">
             <div class="photos-section">
               <div class="photos-container" id="stick-top">
-                <h2> Photos </h2>
-                <hr>
-                <div class="photos-col">
-                  <img [src]="image" *ngFor="let image of photosContainer">
+                <div class="photos-block" *ngIf="!showSpinner">
+                  <h2> Photos </h2>
+                  <hr>
+                  <div class="photos-col">
+                    <img [src]="image" *ngFor="let image of photosContainer" data-toggle="modal" data-target="#exampleModalCenter">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
+
+          <!-- Modal -->
+          <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+            aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+              <div class="modal-content">
+                <div class="modal-body">
+                  <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
+                    <div class="carousel-inner">
+                      <div class="" *ngFor="let image of photosContainer">
+                        <img [src]="image" class="d-block w-100">
+                      </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+                      <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Previous</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+                      <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                      <span class="sr-only">Next</span>
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>
+
     <div class="last-post-message" *ngIf="!noPost">
       <hr class="last-hr">
       <h5 *ngIf="!null_posts"> <i class="fas fa-check fa-right"></i> You catched all posts! </h5>

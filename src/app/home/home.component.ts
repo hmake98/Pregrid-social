@@ -30,6 +30,7 @@ export class HomeComponent implements OnInit {
   currentText: string;
   postUrls = [];
   promises = [];
+  showPlaceholder:boolean;
 
   constructor(private change: ChangeDetectorRef, private userservice: UserService, private router: Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -72,39 +73,53 @@ export class HomeComponent implements OnInit {
     this.post_db_Ref.off();
   }
 
-  pushtoArr(data) {
-    this.post.post_images.push(data);
-  }
-
   postStatus(postForm) {
     let container = document.getElementById("photos-container");
     container.innerHTML = '';
-    let promises = [];
+    let promises = [];  
     /* Promise Code */
     if (this.photosContainer.length != 0) {
+      this.showPlaceholder = true;
       for (let i = 0; i < this.photosContainer.length; i++) {
+        let ext = this.photosContainer[i].name.split('.').pop();
         promises.push(
           new Promise((resolve, reject) => {
-            firebase.storage().ref(this.user.userid).child('post_image_' + Date.now() + '.jpg').put(this.photosContainer[i]).then((snapshot) => {
-              resolve({ file: this.photosContainer[i], snapshot });
+            firebase.storage().ref(this.user.userid).child('post_image_' + Date.now() + '_' + this.generateGuid() + '.' + ext).put(this.photosContainer[i]).then((snapshot) => {          
+              snapshot.ref.getDownloadURL().then((res) => {
+                this.postUrls.push(res);
+                resolve();
+              });
             }).catch((err) => {
               console.log(err);
+              reject(err);
             });
           })
         );
       }
-      Promise.all(promises).then(result => {
-        console.log(result);
-          // this.post.post_images =  this.postUrls;
-          // this.post.timestamp = Date.now();
-          // if (this.post.post_status === undefined) {
-          //   this.post.post_status = "Public";
-          // }
-          // firebase.database().ref('posts/').push(this.post);
-          // this.postForm.reset();
-          // this.photosContainer = [];
+      Promise.all(promises).then(result => { 
+        this.post.post_images = this.postUrls; 
+        this.post.timestamp = Date.now();
+        if (this.post.post_status === undefined) {
+          this.post.post_status = "Public";
+        }
+        firebase.database().ref('posts/').push(this.post);
+        this.showPlaceholder = false;
+        //this.postForm.reset();
+        this.photosContainer = [];
       });
     }
+  }
+
+  generateGuid() {
+    let result, i, j;
+    result = '';
+    for (j = 0; j < 32; j++) {
+      if (j == 8 || j == 12 || j == 16 || j == 20)
+        result = result + '-';
+      i = Math.floor(Math.random() * 16).toString(16).toUpperCase();
+      result = result + i;
+    }
+    return result;
   }
 
   removeStatus(p_key) {
@@ -176,6 +191,7 @@ export class HomeComponent implements OnInit {
   }
 
   uploadImage(event) {
+    this.photosContainer = [];
     let temp = event.srcElement.files;
     let container = document.getElementById("photos-container");
     container.innerHTML = '';
@@ -200,7 +216,7 @@ export class HomeComponent implements OnInit {
                 this.photosContainer.splice(index, 1);
                 event.target.closest('div').parentNode.removeChild(event.target.closest('div'));
               }
-            });
+            });       
           });
           div.appendChild(del);
           div.appendChild(img);

@@ -56,7 +56,8 @@ export class AccountComponent implements OnInit {
         ele.classList.remove("sticky");
       }
     }
-
+    console.log(this.photosContainer);
+    
   }
 
   getUser() {
