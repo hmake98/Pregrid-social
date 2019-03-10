@@ -30,7 +30,7 @@ export class HomeComponent implements OnInit {
   currentText: string;
   postUrls = [];
   promises = [];
-  showPlaceholder:boolean;
+  showPlaceholder: boolean;
 
   constructor(private change: ChangeDetectorRef, private userservice: UserService, private router: Router) {
     this.user = JSON.parse(localStorage.getItem('user'));
@@ -76,7 +76,7 @@ export class HomeComponent implements OnInit {
   postStatus(postForm) {
     let container = document.getElementById("photos-container");
     container.innerHTML = '';
-    let promises = [];  
+    let promises = [];
     /* Promise Code */
     if (this.photosContainer.length != 0) {
       this.showPlaceholder = true;
@@ -84,7 +84,7 @@ export class HomeComponent implements OnInit {
         let ext = this.photosContainer[i].name.split('.').pop();
         promises.push(
           new Promise((resolve, reject) => {
-            firebase.storage().ref(this.user.userid).child('post_image_' + Date.now() + '_' + this.generateGuid() + '.' + ext).put(this.photosContainer[i]).then((snapshot) => {          
+            firebase.storage().ref(this.user.userid).child('post_image_' + Date.now() + '_' + this.generateGuid() + '.' + ext).put(this.photosContainer[i]).then((snapshot) => {
               snapshot.ref.getDownloadURL().then((res) => {
                 this.postUrls.push(res);
                 resolve();
@@ -97,8 +97,8 @@ export class HomeComponent implements OnInit {
           })
         );
       }
-      Promise.all(promises).then(result => { 
-        this.post.post_images = this.postUrls; 
+      Promise.all(promises).then(result => {
+        this.post.post_images = this.postUrls;
         this.post.timestamp = Date.now();
         if (this.post.post_status === undefined) {
           this.post.post_status = "Public";
@@ -108,8 +108,19 @@ export class HomeComponent implements OnInit {
         //this.postForm.reset();
         this.photosContainer = [];
       });
-    }else{
-      alert("Having some issues! Even we also don't know. Peace:");
+    } else if (this.post.status) {
+      this.post.post_images = this.postUrls;
+      this.post.timestamp = Date.now();
+      if (this.post.post_status === undefined) {
+        this.post.post_status = "Public";
+      }
+      firebase.database().ref('posts/').push(this.post);
+      this.post.status = '';
+      this.showPlaceholder = false;
+      //this.postForm.reset();
+      this.photosContainer = [];
+    } else {
+      swal("Oops", "Insert something!", "error");
     }
   }
 
@@ -219,7 +230,7 @@ export class HomeComponent implements OnInit {
                 this.photosContainer.splice(index, 1);
                 event.target.closest('div').parentNode.removeChild(event.target.closest('div'));
               }
-            });       
+            });
           });
           div.appendChild(del);
           div.appendChild(img);

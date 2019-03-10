@@ -236,7 +236,7 @@ h2 {
     border-radius: 15px;
 }
 
-.sticky{
+.sticky {
     position: fixed;
     top: 0px;
     margin-top: 80px;
@@ -277,7 +277,7 @@ h2 {
     height: 100%;
 }
 
-.nopost-error{
+.nopost-error {
     margin-top: 200px;
     padding-bottom: 200px;
 }
@@ -323,11 +323,11 @@ h2 {
         width: 100%;
     }
 
-    .sticky{
+    .sticky {
         position: relative;
     }
 
     .photos-col {
         grid-template-columns: repeat(auto-fill, 150px);
-    }   
+    }
 }

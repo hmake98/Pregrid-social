@@ -38,7 +38,7 @@
     <h1 class="text-center header-text"> Posts </h1>
     <div class="row">
         <div class="col-md-6">
-            <div class="ph-item" *ngIf="showPlaceholder">
+            <div class="ph-item mt-5" *ngIf="showPlaceholder">
 
                 <div class="ph-col-2">
                     <div class="ph-avatar"></div>
@@ -98,9 +98,10 @@
 
                         <!-- Image overlay -->
 
+
                         <div class="row gallery mt-3">
                             <div class="col-md-6 gallery-col" *ngFor="let image of item.post_images">
-                                <img class="post-img" [src]="image">
+                                <img class="img-thumbnail post-img" [src]="image">
                             </div>
                         </div>
                         <button type="button" class="btn btn-like" (click)="giveLike(item)" id="back-color"> <i class="fas fa-thumbs-up"

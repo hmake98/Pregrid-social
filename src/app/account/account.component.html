@@ -118,7 +118,7 @@
 
                   <div class="row gallery mt-3">
                     <div class="col-md-6 gallery-col" *ngFor="let image of item.value.post_images">
-                      <img class="post-img" [src]="image">
+                      <img class="post-img img-thumbnail" [src]="image">
                     </div>
                   </div>
 
@@ -141,7 +141,7 @@
           <div class="col-md-6">
             <div class="photos-section">
               <div class="photos-container" id="stick-top">
-                <div class="photos-block" *ngIf="!showSpinner">
+                <div class="photos-block" *ngIf="photosContainer.length > 0 && !showSpinner">
                   <h2> Photos </h2>
                   <hr>
                   <div class="photos-col">
@@ -160,8 +160,8 @@
                 <div class="modal-body">
                   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
-                      <div class="" *ngFor="let image of photosContainer">
-                        <img [src]="image" class="d-block w-100">
+                      <div class="carousel-item" *ngFor="let image of photosContainer; let i = index" [ngClass]="{'active' : i == 0}">
+                        <img src="{{image}}" class="d-block w-100">
                       </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
