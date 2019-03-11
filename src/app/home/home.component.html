@@ -14,7 +14,7 @@
                                     multiple>
                             </label>
                         </div>
-                        <div class="col-md-12 mt-2">
+                        <div class="col-md-12 mt-2" [hidden]="photosContainer.length === 0">
                             <div *ngFor="let photo of photosContainer"></div>
                             <!-- <button class="btn btn-primary btn-img"> <i class="fas fa-image"></i> Photos </button> -->
                             <div id="photos-container">

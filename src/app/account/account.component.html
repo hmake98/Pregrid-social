@@ -5,7 +5,7 @@
     <button class="btn edit-img" data-toggle="modal" data-target="#exampleModal" [hidden]="!exist_user"> <i class="fas fa-plus fa-2x"></i></button>
     <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
       aria-hidden="true">
-      <div class="modal-dialog" role="document">
+      <div class="modal-dialog modal-dialog-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Image upload</h5>
@@ -88,15 +88,15 @@
       </div>
     </div>
     <div class="pregrid-profile-posts">
-      <h2> Posts </h2>
-      <hr class="post-line">
       <div class="loader" *ngIf="showSpinner">
         <div class="spinner"></div>
       </div>
-      <div class="nopost-error display-4" *ngIf="noPost"> No post found! </div>
+      <div class="nopost-error" *ngIf="noPost"> <i class="fas fa-exclamation-circle"></i> No post found! </div>
       <div class="post">
-        <div class="row">
-          <div class="col-md-6">
+        <div class="row flex-column-reverse flex-md-row">
+          <div class="col-md-6" *ngIf="!showSpinner && !noPost">
+            <h2> Posts </h2>
+            <hr class="post-line">
             <div class="posts" *ngFor="let item of user_post; let i = index">
               <div class="card">
                 <h5 class="card-head"> <img [src]="user.url" class="img-profile mr-2" width="30px" height="30px"
@@ -138,7 +138,7 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6">
+          <div class="col-md-6" *ngIf="!showSpinner && !noPost">
             <div class="photos-section">
               <div class="photos-container" id="stick-top">
                 <div class="photos-block" *ngIf="photosContainer.length > 0 && !showSpinner">
@@ -161,7 +161,7 @@
                   <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">
                     <div class="carousel-inner">
                       <div class="carousel-item" *ngFor="let image of photosContainer; let i = index" [ngClass]="{'active' : i == 0}">
-                        <img src="{{image}}" class="d-block w-100">
+                        <img src="{{image}}" class="d-block w-100 slide-image">
                       </div>
                     </div>
                     <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
@@ -182,10 +182,9 @@
       </div>
     </div>
 
-    <div class="last-post-message" *ngIf="!noPost">
+    <div class="last-post-message" *ngIf="!noPost && !showSpinner">
       <hr class="last-hr">
       <h5 *ngIf="!null_posts"> <i class="fas fa-check fa-right"></i> You catched all posts! </h5>
-      <h5 *ngIf="null_posts"> No posts found! </h5>
     </div>
   </div>
 </div>

@@ -36,6 +36,7 @@ select {
 /* buttons */
 
 .btn-post {
+    border-radius: 15px;
     width: 100%;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background: linear-gradient(270deg, #B24592, #F15F79);
@@ -219,7 +220,6 @@ input[type="file"] {
     width: 200px;
     margin: .5vw;
     padding: 0;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12), 0 1px 2px rgba(0, 0, 0, 0.24);
 }
 
 .post-img {

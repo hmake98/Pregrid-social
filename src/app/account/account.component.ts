@@ -133,9 +133,6 @@ export class AccountComponent implements OnInit {
       .then((willDelete) => {
         if (willDelete) {
           firebase.database().ref('posts/').child(p_key).remove();
-          swal("Your post has been deleted!", {
-            icon: "success",
-          });
         }
       });
   }

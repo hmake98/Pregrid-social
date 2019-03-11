@@ -4,7 +4,7 @@ import { UserService } from '../user.service';
 import { User } from '../user.model';
 import { LogUser } from '../login.model';
 import { Router } from '@angular/router';
-
+import swal from 'sweetalert';
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -23,6 +23,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     if (localStorage.getItem('user')) {
+      swal("Already logged in!", "Continue to home.");
       this.router.navigate(['/home']);
     } else {
       this.userservice.getUsers().subscribe(
