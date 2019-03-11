@@ -91,7 +91,9 @@
       <div class="loader" *ngIf="showSpinner">
         <div class="spinner"></div>
       </div>
-      <div class="nopost-error" *ngIf="noPost"> <i class="fas fa-exclamation-circle"></i> No post found! </div>
+      <div class="jumbotron" *ngIf="noPost">
+        <h1 class="nopost-error"> <i class="fas fa-exclamation-circle"></i> No post Found! </h1>
+      </div>
       <div class="post">
         <div class="row flex-column-reverse flex-md-row">
           <div class="col-md-6" *ngIf="!showSpinner && !noPost">
@@ -138,10 +140,10 @@
               </div>
             </div>
           </div>
-          <div class="col-md-6" *ngIf="!showSpinner && !noPost">
+          <div class="col-md-6">
             <div class="photos-section">
               <div class="photos-container" id="stick-top">
-                <div class="photos-block" *ngIf="photosContainer.length > 0 && !showSpinner">
+                <div class="photos-block" *ngIf="!photosContainer.length == 0 || !showSpinner || noPost">
                   <h2> Photos </h2>
                   <hr>
                   <div class="photos-col">

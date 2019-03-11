@@ -47,7 +47,7 @@ export class AccountComponent implements OnInit {
 
     window.onscroll = function () { stick() };
     let ele = document.getElementById("stick-top");
-    let sticky = 887;
+    let sticky = 876;
 
     function stick() {
 
