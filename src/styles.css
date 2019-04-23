@@ -8,6 +8,7 @@ body {
 }
 
 .swal-button{
+    animation: bounceIn 0.5s;
     box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16), 0 3px 6px rgba(0, 0, 0, 0.23);
     background: linear-gradient(270deg, #B24592, #F15F79) !important;
     outline: none;

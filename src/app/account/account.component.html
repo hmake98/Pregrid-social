@@ -120,7 +120,7 @@
 
                   <div class="row gallery mt-3">
                     <div class="col-md-6 gallery-col" *ngFor="let image of item.value.post_images">
-                      <img class="post-img img-thumbnail" [src]="image">
+                      <img class="post-img" [src]="image" width="250px" height="250px">
                     </div>
                   </div>
 
@@ -143,11 +143,12 @@
           <div class="col-md-6">
             <div class="photos-section">
               <div class="photos-container" id="stick-top">
-                <div class="photos-block" *ngIf="!photosContainer.length == 0 || !showSpinner || noPost">
+                <div class="photos-block" *ngIf="photosContainer.length > 0 || !showSpinner || noPost">
                   <h2> Photos </h2>
                   <hr>
                   <div class="photos-col">
                     <img [src]="image" *ngFor="let image of photosContainer" data-toggle="modal" data-target="#exampleModalCenter">
+                    {{ image | json }}
                   </div>
                 </div>
               </div>
