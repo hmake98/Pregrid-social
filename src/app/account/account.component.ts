@@ -1,8 +1,9 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as firebase from 'firebase';
 import { User } from '../user.model';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert';
+import { toBase64String } from '@angular/compiler/src/output/source_map';
 declare var $: any;
 @Component({
   selector: 'app-account',
@@ -26,9 +27,12 @@ export class AccountComponent implements OnInit {
   blobFile: any;
   edit_post: string;
   photosContainer = [];
+  prof_image: string;
+  noAlbum: boolean;
+  showSpinner_1: boolean;
 
 
-  constructor(private change: ChangeDetectorRef, private activatedRoute: ActivatedRoute) {
+  constructor(private change: ChangeDetectorRef, private activatedRoute: ActivatedRoute, private router: Router) {
     this.showSpinner = true;
     this.activatedRoute.params.subscribe(params => {
       if (params.userid) {
@@ -37,28 +41,35 @@ export class AccountComponent implements OnInit {
           this.getUser();
         });
       } else {
-        this.user = JSON.parse(localStorage.getItem('user'));
-        this.getUser();
+        if (localStorage.getItem('user')) {
+          this.user = JSON.parse(localStorage.getItem('user'));
+          this.getUser();
+        } else {
+          swal({
+            text: "User not found!",
+            icon: "warning",
+            dangerMode: true
+          })
+          this.router.navigate(['/login']);
+        }
       }
     });
   }
 
   ngOnInit() {
-
+    this.noAlbum = true;
+    this.showSpinner_1 = true;
     window.onscroll = function () { stick() };
     let ele = document.getElementById("stick-top");
     let sticky = 880;
 
     function stick() {
-
       if (window.pageYOffset >= sticky) {
         ele.classList.add("sticky");
       } else {
         ele.classList.remove("sticky");
       }
     }
-    console.log(this.photosContainer);
-
   }
 
   getUser() {
@@ -71,11 +82,16 @@ export class AccountComponent implements OnInit {
           this.user_post.unshift({ key: key, value: res.val()[key] });
           for (let p in res.val()[key].post_images) {
             this.photosContainer.push(res.val()[key].post_images[p]);
+            this.noAlbum = false;
+            this.showSpinner_1 = false;
           }
         }
-        //console.log(this.photosContainer);
-        this.showSpinner = false;
 
+        if(this.photosContainer.length == 0){
+          this.noAlbum = true;
+        }
+
+        this.showSpinner = false;
         if (this.user_post.length === 0) {
           this.noPost = true;
         }
@@ -173,6 +189,7 @@ export class AccountComponent implements OnInit {
     this.imageSize = event.srcElement.files[0].size / 1024;
     const file = event.srcElement.files[0]
     this.blobFile = new Blob([file]);
+    // let reader = new FileReader();
   }
 
   save() {

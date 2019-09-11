@@ -287,6 +287,10 @@ h2 {
     color: #3e3e3e;
 }
 
+.spinner-imageupload{
+    position: absolute;
+}
+
 
 @keyframes fade {
     0% {

@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
       for (let key in this.users) {
         usersList.push({ ...this.users[key], userid: key });
       }
-      let matchedUser = usersList.filter(u => u.email.toLowerCase() == this.user.email.toLowerCase());
+      let matchedUser = usersList.filter(u => u.email == this.user.email);
       if (matchedUser.length === 0) {
         this.noAccount = true;
         setTimeout(() => {

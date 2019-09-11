@@ -33,8 +33,17 @@ export class HomeComponent implements OnInit {
   showPlaceholder: boolean;
 
   constructor(private change: ChangeDetectorRef, private userservice: UserService, private router: Router) {
-    this.user = JSON.parse(localStorage.getItem('user'));
-    this.post.userid = this.user.userid;
+    if(localStorage.getItem('user')){
+      this.user = JSON.parse(localStorage.getItem('user'));
+      this.post.userid = this.user.userid;
+    } else {
+      swal({
+        text: "Login required",
+        icon: "warning",
+        dangerMode: true
+      })
+      this.router.navigate(['/login']);
+    }
   }
 
   ngOnInit() {
@@ -69,9 +78,9 @@ export class HomeComponent implements OnInit {
     );
   }
 
-  ngOnDestroy(): void {
-    this.post_db_Ref.off();
-  }
+  // ngOnDestroy(): void {
+  //   this.post_db_Ref.off();
+  // }
 
   postStatus(postForm) {
     let container = document.getElementById("photos-container");
