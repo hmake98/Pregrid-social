@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { User } from '../user.model';
+import { User } from '../../models/user.model';
 import * as firebase from 'firebase';
 
 @Component({
@@ -8,8 +8,8 @@ import * as firebase from 'firebase';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.css']
 })
-export class HeaderComponent implements OnInit {
 
+export class HeaderComponent implements OnInit {
   user: User;
   finduser: string;
   users = [];

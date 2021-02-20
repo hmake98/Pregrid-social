@@ -1,16 +1,18 @@
 import { Component, OnInit, ViewChild, ChangeDetectorRef } from '@angular/core';
-import { User } from '../user.model';
-import { Post } from '../post.model';
+import { User } from '../../models/user.model';
+import { Post } from '../../models/post.model';
 import { NgForm } from '@angular/forms';
 import * as firebase from 'firebase';
-import { UserService } from '../user.service';
+import { UserService } from '../../services/user.service';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
+
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css']
 })
+
 export class HomeComponent implements OnInit {
   @ViewChild('f') postForm: NgForm;
   user: User;
@@ -33,12 +35,12 @@ export class HomeComponent implements OnInit {
   showPlaceholder: boolean;
 
   constructor(private change: ChangeDetectorRef, private userservice: UserService, private router: Router) {
-    if(localStorage.getItem('user')){
+    if (localStorage.getItem('user')) {
       this.user = JSON.parse(localStorage.getItem('user'));
       this.post.userid = this.user.userid;
     } else {
       swal({
-        text: "Login required",
+        text: "Not logged in",
         icon: "warning",
         dangerMode: true
       })

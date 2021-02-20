@@ -1,9 +1,8 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import * as firebase from 'firebase';
-import { User } from '../user.model';
+import { User } from '../../models/user.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import swal from 'sweetalert';
-import { toBase64String } from '@angular/compiler/src/output/source_map';
 declare var $: any;
 @Component({
   selector: 'app-account',

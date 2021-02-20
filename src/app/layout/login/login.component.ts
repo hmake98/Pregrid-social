@@ -1,17 +1,18 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
-import { UserService } from '../user.service';
-import { User } from '../user.model';
-import { LogUser } from '../login.model';
+import { UserService } from '../../services/user.service';
+import { User } from '../../models/user.model';
+import { LogUser } from '../../models/login.model';
 import { Router } from '@angular/router';
 import swal from 'sweetalert';
+
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
 
+export class LoginComponent implements OnInit {
   @ViewChild('f') loginform: NgForm;
   users: Array<User> = [];
   user: LogUser = new LogUser();

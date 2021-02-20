@@ -27,7 +27,7 @@
     "bootstrap": "^4.2.1",
     "core-js": "^2.5.4",
     "dateformat": "^3.0.3",
-    "firebase": "^5.8.2",
+    "firebase": "^4.8.0",
     "ng-http-loader": "^5.0.1",
     "rxjs": "~6.3.3",
     "sweetalert": "^2.1.2",
